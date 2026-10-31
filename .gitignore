@@ -5,3 +5,5 @@ target/
 .env
 *.log
 .DS_Store
+# Optional verified Linux wheels for offline Docker dependency installation.
+analytics-flask/wheels/*.whl

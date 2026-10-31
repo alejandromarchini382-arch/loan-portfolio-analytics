@@ -1,0 +1,70 @@
+{
+  "initial": {
+    "loans": 1500,
+    "rated": 0,
+    "unrated": 1500
+  },
+  "submission": [
+    {
+      "tenantId": "2668d56c-d696-50e6-b98b-79dae5d65c7c",
+      "runId": "d0dbb33b-1f05-43a9-b7c1-a3567fc39a2c",
+      "httpStatus": 202,
+      "status": "QUEUED",
+      "latencyMs": 125.0
+    },
+    {
+      "tenantId": "f1c9c744-05ce-537b-b653-d7fbe822f077",
+      "runId": "91ca9345-78a3-493d-888a-6e03d165aba0",
+      "httpStatus": 202,
+      "status": "QUEUED",
+      "latencyMs": 110.0
+    }
+  ],
+  "scheduler": {
+    "exitCode": 0,
+    "activeTenantRunsDeferred": true
+  },
+  "runningObserved": true,
+  "stagedBeforePublicationObserved": true,
+  "successful": [
+    {
+      "tenantId": "2668d56c-d696-50e6-b98b-79dae5d65c7c",
+      "activeRated": 669,
+      "inactiveUnrated": 81,
+      "ratings": {
+        "HIGH": 27,
+        "LOW": 550,
+        "MEDIUM": 92
+      }
+    },
+    {
+      "tenantId": "f1c9c744-05ce-537b-b653-d7fbe822f077",
+      "activeRated": 665,
+      "inactiveUnrated": 85,
+      "ratings": {
+        "HIGH": 38,
+        "LOW": 526,
+        "MEDIUM": 101
+      }
+    }
+  ],
+  "failure": {
+    "runId": "08f7c7d9-e52f-44be-acc3-5a168fd554c7",
+    "status": "FAILED",
+    "errorCode": "SOURCE_SNAPSHOT_CHANGED",
+    "sourceVersionAdvanced": true,
+    "publicationPreserved": true
+  },
+  "idempotency": {
+    "sameRun": true,
+    "jobsBefore": 2,
+    "jobsAfter": 2,
+    "status": "FAILED"
+  },
+  "crossTenantHttpStatus": 404,
+  "workerDemoBatchSizes": {
+    "success": 50,
+    "failure": 10,
+    "serviceDefault": 1000
+  }
+}

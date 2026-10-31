@@ -1,0 +1,80 @@
+x-risk-env: &risk-env
+  SQLSERVER_HOST: sqlserver,1433
+  SQLSERVER_DATABASE: ${RISK_DATABASE:-LoanPortfolio}
+  SQLSERVER_TRUST_SERVER_CERTIFICATE: ${RISK_TRUST_SERVER_CERTIFICATE:-yes}
+  RISK_TENANTS: ${RISK_TENANTS:-}
+  RISK_BATCH_SIZE: ${RISK_BATCH_SIZE:-1000}
+  RISK_LEASE_SECONDS: ${RISK_LEASE_SECONDS:-120}
+  RISK_POLL_SECONDS: ${RISK_POLL_SECONDS:-2}
+  RISK_MAX_ATTEMPTS: ${RISK_MAX_ATTEMPTS:-3}
+  RISK_SQL_TRIES: ${RISK_SQL_TRIES:-3}
+  RISK_COOLDOWN_SECONDS: ${RISK_COOLDOWN_SECONDS:-10}
+  RISK_SCHEDULE_INTERVAL: ${RISK_SCHEDULE_INTERVAL:-86400}
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-CU23-ubuntu-22.04
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Set MSSQL_SA_PASSWORD in your environment or .env}
+    ports:
+      - "127.0.0.1:${SQLSERVER_PORT:-1433}:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+      - ./sql:/sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "SQLCMDPASSWORD=\"$$MSSQL_SA_PASSWORD\" /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -b -Q 'SELECT 1' -o /dev/null"]
+      interval: 10s
+      timeout: 5s
+      start_period: 40s
+      retries: 12
+    restart: unless-stopped
+
+  risk-api:
+    profiles: [risk]
+    image: axis-risk:local
+    build:
+      context: ./analytics-flask
+      args:
+        INSTALL_OFFLINE: ${RISK_OFFLINE_WHEELS:-0}
+    environment:
+      <<: *risk-env
+      SQLSERVER_USER: ${RISK_API_DB_USER:-risk_api_login}
+      SQLSERVER_PASSWORD: ${RISK_API_DB_PASSWORD:-}
+      RISK_AUTH_MODE: ${RISK_AUTH_MODE:-}
+      RISK_JWT_SECRET: ${RISK_JWT_SECRET:-}
+      RISK_JWT_ISSUER: ${RISK_JWT_ISSUER:-}
+      RISK_JWT_AUDIENCE: ${RISK_JWT_AUDIENCE:-}
+    ports:
+      - "127.0.0.1:${RISK_API_PORT:-8000}:8000"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    restart: unless-stopped
+
+  risk-worker:
+    profiles: [risk]
+    image: axis-risk:local
+    build:
+      context: ./analytics-flask
+      args:
+        INSTALL_OFFLINE: ${RISK_OFFLINE_WHEELS:-0}
+    command: [python, -m, risk.worker]
+    environment:
+      <<: *risk-env
+      SQLSERVER_USER: ${RISK_WORKER_DB_USER:-risk_worker_login}
+      SQLSERVER_PASSWORD: ${RISK_WORKER_DB_PASSWORD:-}
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -m, risk.worker, --health-check]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 6
+    restart: unless-stopped
+
+volumes:
+  sqlserver-data:
