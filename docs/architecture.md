@@ -496,3 +496,12 @@ The analytics-flask service uses the existing SQL queue/stage/publication object
 are separate from Spring Boot's public portfolio routes. A separate worker owns scoring; a separate scheduler command
 submits authorized tenant jobs. See data-contract.md section 11 and analytics-flask/README.md for implemented ownership,
 authentication, operational defaults, deployment commands and test evidence. Flask does not own the React, Mendix or Spring Boot implementation. No new SQL tables or changes to PublishRiskRun are required.
+
+
+## Reporting API implementation
+
+The Spring layer is in spring-boot: verified JWT -> tenant/permission checks -> parameterized JDBC SQL over
+PublishedLoanPortfolio -> decimal-string DTOs. Metadata and data share one bounded SQL statement; existing RCSI is used
+when enabled, with statement-duration consistency locks as the fallback. Source watermark and publication UUID remain
+separate. Spring delegates risk submission to Flask; it does not implement risk workers or publication. See contract
+section 12 and the Spring/frontend handoff documentation for concrete routes, limits and tested behavior.

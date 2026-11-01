@@ -1,6 +1,6 @@
 # AXIS — Accepted Decisions and Assumptions
 
-**Decision register version:** `0.3.0` — assessment prototype.  
+**Decision register version:** `0.4.0` — assessment prototype.
 **Detailed rationale:** [`architecture.md`](architecture.md).  
 **Authoritative fields, API shapes, calculations and enums:** [`data-contract.md`](data-contract.md).
 
@@ -69,3 +69,16 @@ label it clearly and test it; do not invent another one.
   standalone worker/scheduler, existing SQL queue and atomic publication. No broker, Celery, Redis or new tables.
 - ADR-024: Keep only required input fields in a consistent in-memory snapshot for the 1,500/15,000-row prototype;
   process/stage configurable batches after releasing source locks. Large-scale persistent snapshots are deferred.
+
+## Spring reporting decisions (2026-10-31)
+
+- ADR-025: Java 17, Spring Boot 3.5.x, JDBC and a read-only reporting login; no JPA/entities, new risk calculation,
+  database objects, cache or background job system. Maven Wrapper and Java 17 build tooling leave host Java 23 unchanged.
+- ADR-026: Explicit portfolio:read vocabulary addition with unchanged risk:read / risk:run boundaries and legacy token
+  defaults. Public risk POST delegates the verified token to Flask; job/run IDs are mapped in tenant-qualified SQL.
+- ADR-027: One SQL statement per reporting response combines metadata and data. Use existing RCSI when enabled,
+  otherwise bounded statement-duration HOLDLOCK; no new database snapshot setting or cross-request transaction.
+- ADR-028: HMAC cursor binds tenant, group path, filters, position, expiry and source/publication metadata. Watermark
+  and published risk identity stay distinct; no guaranteed multi-request portfolio snapshot is claimed.
+- ADR-029: Keep two levels and existing routes; add metadata for the widget. Bound groups at 100 with an explicit error
+  on overflow, paginate loans at 50/100. Larger group pagination and production OIDC/RLS remain deferred.

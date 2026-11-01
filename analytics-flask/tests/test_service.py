@@ -168,3 +168,12 @@ def test_worker_stop_is_recorded_without_publication(repository):
     assert process_run(repository,claim,stop,after_batch=lambda *_:stop.set())=="FAILED"
     repository.fail.assert_called_once_with(claim,"WORKER_STOPPED")
     repository.publish.assert_not_called()
+
+
+def test_portfolio_permission_does_not_grant_risk_permissions(settings,auth,repository):
+    client=create_app(settings,repository,auth).test_client()
+    read_only=headers(auth,permissions=("portfolio:read",))
+    assert client.post("/risk/runs",json={},headers=read_only).status_code==403
+    assert client.get("/risk/runs/"+RUN,headers=read_only).status_code==403
+    claims=jwt.decode(auth.token(TENANT),auth.secret,algorithms=["HS256"],audience=auth.audience)
+    assert set(claims["permissions"])=={"risk:read","risk:run"}

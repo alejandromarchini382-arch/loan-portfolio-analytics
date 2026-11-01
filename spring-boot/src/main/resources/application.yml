@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: axis-portfolio-api
+  jackson:
+    default-property-inclusion: always
+server:
+  port: ${SERVER_PORT:8081}
+  max-http-request-header-size: 8KB
+  error:
+    include-message: never
+    include-stacktrace: never
+  tomcat:
+    max-http-form-post-size: 2KB
+    max-swallow-size: 2KB
+portfolio:
+  auth-mode: ${RISK_AUTH_MODE:}
+  jwt-secret: ${RISK_JWT_SECRET:}
+  issuer: ${RISK_JWT_ISSUER:}
+  audience: ${RISK_JWT_AUDIENCE:}
+  tenants: ${RISK_TENANTS:}
+  cursor-secret: ${PORTFOLIO_CURSOR_SECRET:}
+  db-host: ${PORTFOLIO_DB_HOST:127.0.0.1}
+  db-port: ${PORTFOLIO_DB_PORT:1433}
+  db-name: ${PORTFOLIO_DATABASE:LoanPortfolio}
+  db-user: ${PORTFOLIO_DB_USER:}
+  db-password: ${PORTFOLIO_DB_PASSWORD:}
+  trust-certificate: ${PORTFOLIO_TRUST_CERTIFICATE:false}
+  query-seconds: ${PORTFOLIO_QUERY_SECONDS:5}
+  cursor-seconds: ${PORTFOLIO_CURSOR_SECONDS:900}
+  requests-per-minute: ${PORTFOLIO_REQUESTS_PER_MINUTE:120}
+  cors-origins: ${PORTFOLIO_CORS_ORIGINS:}
+  flask-base-url: ${FLASK_BASE_URL:http://127.0.0.1:8000}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
+logging:
+  structured:
+    format:
+      console: ecs
+  level:
+    com.zaxxer.hikari: OFF
+    org.springframework.jdbc: OFF
+    org.apache.coyote.http11: OFF

@@ -9,7 +9,8 @@ import jwt
 from .config import uuid_text
 from .errors import RiskError
 
-PERMISSIONS = {"risk:run", "risk:read"}
+RISK_PERMISSIONS = {"risk:run", "risk:read"}
+PERMISSIONS = RISK_PERMISSIONS | {"portfolio:read"}
 
 
 @dataclass(frozen=True)
@@ -47,7 +48,7 @@ class Auth:
             raise RiskError("FORBIDDEN",403)
         return tenant
 
-    def token(self, tenant, permissions=tuple(sorted(PERMISSIONS)), lifetime=900):
+    def token(self, tenant, permissions=tuple(sorted(RISK_PERMISSIONS)), lifetime=900):
         tenant=uuid_text(tenant)
         if tenant not in self.tenants or not set(permissions) <= PERMISSIONS or not permissions:
             raise ValueError("INVALID_TOKEN_SCOPE")

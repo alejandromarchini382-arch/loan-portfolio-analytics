@@ -1,0 +1,625 @@
+{
+  "dataset": "existing persistent 1500-loan fixture; prior publications preserved",
+  "tenants": [
+    {
+      "tenantId": "2668d56c-d696-50e6-b98b-79dae5d65c7c",
+      "aggregations": {
+        "division": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": null,
+              "label": "Unassigned",
+              "loanCount": 14,
+              "totalBalance": "1520676.44",
+              "averageInterestRate": "0.15085000",
+              "hasChildren": false
+            },
+            {
+              "key": "Agriculture",
+              "label": "Agriculture",
+              "loanCount": 130,
+              "totalBalance": "49287912.27",
+              "averageInterestRate": "0.12921129",
+              "hasChildren": false
+            },
+            {
+              "key": "Commercial",
+              "label": "Commercial",
+              "loanCount": 120,
+              "totalBalance": "43482436.24",
+              "averageInterestRate": "0.13434915",
+              "hasChildren": false
+            },
+            {
+              "key": "Mortgage",
+              "label": "Mortgage",
+              "loanCount": 142,
+              "totalBalance": "62580273.26",
+              "averageInterestRate": "0.12905362",
+              "hasChildren": false
+            },
+            {
+              "key": "Retail",
+              "label": "Retail",
+              "loanCount": 128,
+              "totalBalance": "47219335.79",
+              "averageInterestRate": "0.13898174",
+              "hasChildren": false
+            },
+            {
+              "key": "Small Business",
+              "label": "Small Business",
+              "loanCount": 135,
+              "totalBalance": "44874122.01",
+              "averageInterestRate": "0.14333939",
+              "hasChildren": false
+            }
+          ]
+        },
+        "loanOfficer": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": null,
+              "label": "Unassigned",
+              "loanCount": 11,
+              "totalBalance": "2369941.55",
+              "averageInterestRate": "0.12881818",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 01",
+              "label": "Demo Officer 01",
+              "loanCount": 25,
+              "totalBalance": "10485975.43",
+              "averageInterestRate": "0.12899600",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 02",
+              "label": "Demo Officer 02",
+              "loanCount": 35,
+              "totalBalance": "11884077.40",
+              "averageInterestRate": "0.12176176",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 03",
+              "label": "Demo Officer 03",
+              "loanCount": 30,
+              "totalBalance": "14313135.88",
+              "averageInterestRate": "0.13613000",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 04",
+              "label": "Demo Officer 04",
+              "loanCount": 35,
+              "totalBalance": "11628265.37",
+              "averageInterestRate": "0.13820285",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 05",
+              "label": "Demo Officer 05",
+              "loanCount": 26,
+              "totalBalance": "10205136.12",
+              "averageInterestRate": "0.12776538",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 06",
+              "label": "Demo Officer 06",
+              "loanCount": 31,
+              "totalBalance": "6501928.64",
+              "averageInterestRate": "0.15297096",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 07",
+              "label": "Demo Officer 07",
+              "loanCount": 36,
+              "totalBalance": "16712777.63",
+              "averageInterestRate": "0.13442352",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 08",
+              "label": "Demo Officer 08",
+              "loanCount": 30,
+              "totalBalance": "7661121.27",
+              "averageInterestRate": "0.11853666",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 09",
+              "label": "Demo Officer 09",
+              "loanCount": 36,
+              "totalBalance": "18522124.02",
+              "averageInterestRate": "0.12990303",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 10",
+              "label": "Demo Officer 10",
+              "loanCount": 42,
+              "totalBalance": "16900319.87",
+              "averageInterestRate": "0.14131025",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 11",
+              "label": "Demo Officer 11",
+              "loanCount": 44,
+              "totalBalance": "18214404.27",
+              "averageInterestRate": "0.14252045",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 12",
+              "label": "Demo Officer 12",
+              "loanCount": 30,
+              "totalBalance": "9993894.13",
+              "averageInterestRate": "0.13740344",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 13",
+              "label": "Demo Officer 13",
+              "loanCount": 31,
+              "totalBalance": "10819661.50",
+              "averageInterestRate": "0.14032903",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 14",
+              "label": "Demo Officer 14",
+              "loanCount": 37,
+              "totalBalance": "12725163.30",
+              "averageInterestRate": "0.12646000",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 15",
+              "label": "Demo Officer 15",
+              "loanCount": 36,
+              "totalBalance": "9831515.33",
+              "averageInterestRate": "0.13671944",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 16",
+              "label": "Demo Officer 16",
+              "loanCount": 31,
+              "totalBalance": "13678907.58",
+              "averageInterestRate": "0.12339677",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 17",
+              "label": "Demo Officer 17",
+              "loanCount": 23,
+              "totalBalance": "7877423.62",
+              "averageInterestRate": "0.15598695",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 18",
+              "label": "Demo Officer 18",
+              "loanCount": 29,
+              "totalBalance": "14136367.16",
+              "averageInterestRate": "0.15144814",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 19",
+              "label": "Demo Officer 19",
+              "loanCount": 37,
+              "totalBalance": "12592824.74",
+              "averageInterestRate": "0.13501944",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 20",
+              "label": "Demo Officer 20",
+              "loanCount": 34,
+              "totalBalance": "11909791.20",
+              "averageInterestRate": "0.13191875",
+              "hasChildren": false
+            }
+          ]
+        },
+        "borrowerType": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": "CORPORATE",
+              "label": "CORPORATE",
+              "loanCount": 231,
+              "totalBalance": "156811502.32",
+              "averageInterestRate": "0.13168035",
+              "hasChildren": false
+            },
+            {
+              "key": "INDIVIDUAL",
+              "label": "INDIVIDUAL",
+              "loanCount": 438,
+              "totalBalance": "92153253.69",
+              "averageInterestRate": "0.13722616",
+              "hasChildren": false
+            }
+          ]
+        },
+        "riskRating": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": "HIGH",
+              "label": "HIGH",
+              "loanCount": 27,
+              "totalBalance": "13099318.24",
+              "averageInterestRate": "0.14091153",
+              "hasChildren": false
+            },
+            {
+              "key": "LOW",
+              "label": "LOW",
+              "loanCount": 550,
+              "totalBalance": "200820342.09",
+              "averageInterestRate": "0.13490391",
+              "hasChildren": false
+            },
+            {
+              "key": "MEDIUM",
+              "label": "MEDIUM",
+              "loanCount": 92,
+              "totalBalance": "35045095.68",
+              "averageInterestRate": "0.13618888",
+              "hasChildren": false
+            }
+          ]
+        }
+      },
+      "pagination": {
+        "pages": 21,
+        "uniqueLoans": 142,
+        "nestedChildrenReconciled": true
+      },
+      "successfulRun": {
+        "jobId": "8FCAE7E4-1754-475B-B601-6064D0003B03",
+        "runId": "51c96987-331f-4c06-95cf-c449f432fc3c",
+        "httpStatus": 202,
+        "submissionMs": 211.66,
+        "runningObserved": true,
+        "stagedBatchProgress": [
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          669
+        ],
+        "oldPublicationRetainedBeforePublish": true,
+        "publicationChanged": true
+      },
+      "activeLoans": 669
+    },
+    {
+      "tenantId": "f1c9c744-05ce-537b-b653-d7fbe822f077",
+      "aggregations": {
+        "division": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": null,
+              "label": "Unassigned",
+              "loanCount": 19,
+              "totalBalance": "7357126.16",
+              "averageInterestRate": "0.15562352",
+              "hasChildren": false
+            },
+            {
+              "key": "Agriculture",
+              "label": "Agriculture",
+              "loanCount": 127,
+              "totalBalance": "36197887.39",
+              "averageInterestRate": "0.13620416",
+              "hasChildren": false
+            },
+            {
+              "key": "Commercial",
+              "label": "Commercial",
+              "loanCount": 124,
+              "totalBalance": "34832941.32",
+              "averageInterestRate": "0.14582333",
+              "hasChildren": false
+            },
+            {
+              "key": "Mortgage",
+              "label": "Mortgage",
+              "loanCount": 124,
+              "totalBalance": "36860035.11",
+              "averageInterestRate": "0.13759743",
+              "hasChildren": false
+            },
+            {
+              "key": "Retail",
+              "label": "Retail",
+              "loanCount": 128,
+              "totalBalance": "47248060.10",
+              "averageInterestRate": "0.13370916",
+              "hasChildren": false
+            },
+            {
+              "key": "Small Business",
+              "label": "Small Business",
+              "loanCount": 143,
+              "totalBalance": "54903610.99",
+              "averageInterestRate": "0.14226906",
+              "hasChildren": false
+            }
+          ]
+        },
+        "loanOfficer": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": null,
+              "label": "Unassigned",
+              "loanCount": 20,
+              "totalBalance": "5823212.75",
+              "averageInterestRate": "0.16108947",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 01",
+              "label": "Demo Officer 01",
+              "loanCount": 42,
+              "totalBalance": "15147453.90",
+              "averageInterestRate": "0.13277250",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 02",
+              "label": "Demo Officer 02",
+              "loanCount": 37,
+              "totalBalance": "16069740.47",
+              "averageInterestRate": "0.12732702",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 03",
+              "label": "Demo Officer 03",
+              "loanCount": 39,
+              "totalBalance": "11544349.13",
+              "averageInterestRate": "0.14529487",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 04",
+              "label": "Demo Officer 04",
+              "loanCount": 27,
+              "totalBalance": "7800764.41",
+              "averageInterestRate": "0.13233461",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 05",
+              "label": "Demo Officer 05",
+              "loanCount": 25,
+              "totalBalance": "8872960.83",
+              "averageInterestRate": "0.13632500",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 06",
+              "label": "Demo Officer 06",
+              "loanCount": 28,
+              "totalBalance": "7274772.55",
+              "averageInterestRate": "0.14022608",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 07",
+              "label": "Demo Officer 07",
+              "loanCount": 34,
+              "totalBalance": "14867526.83",
+              "averageInterestRate": "0.13717058",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 08",
+              "label": "Demo Officer 08",
+              "loanCount": 25,
+              "totalBalance": "6817697.25",
+              "averageInterestRate": "0.12244583",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 09",
+              "label": "Demo Officer 09",
+              "loanCount": 36,
+              "totalBalance": "12116128.47",
+              "averageInterestRate": "0.14320000",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 10",
+              "label": "Demo Officer 10",
+              "loanCount": 37,
+              "totalBalance": "16452608.95",
+              "averageInterestRate": "0.13298235",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 11",
+              "label": "Demo Officer 11",
+              "loanCount": 30,
+              "totalBalance": "10344409.03",
+              "averageInterestRate": "0.13611071",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 12",
+              "label": "Demo Officer 12",
+              "loanCount": 28,
+              "totalBalance": "9449081.85",
+              "averageInterestRate": "0.16721851",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 13",
+              "label": "Demo Officer 13",
+              "loanCount": 33,
+              "totalBalance": "6054953.59",
+              "averageInterestRate": "0.14283125",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 14",
+              "label": "Demo Officer 14",
+              "loanCount": 39,
+              "totalBalance": "11255958.98",
+              "averageInterestRate": "0.12852702",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 15",
+              "label": "Demo Officer 15",
+              "loanCount": 37,
+              "totalBalance": "14696112.22",
+              "averageInterestRate": "0.15269142",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 16",
+              "label": "Demo Officer 16",
+              "loanCount": 29,
+              "totalBalance": "7391622.07",
+              "averageInterestRate": "0.15481071",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 17",
+              "label": "Demo Officer 17",
+              "loanCount": 18,
+              "totalBalance": "6040474.07",
+              "averageInterestRate": "0.12830588",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 18",
+              "label": "Demo Officer 18",
+              "loanCount": 33,
+              "totalBalance": "6878671.25",
+              "averageInterestRate": "0.14090937",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 19",
+              "label": "Demo Officer 19",
+              "loanCount": 33,
+              "totalBalance": "14226341.63",
+              "averageInterestRate": "0.12677419",
+              "hasChildren": false
+            },
+            {
+              "key": "Demo Officer 20",
+              "label": "Demo Officer 20",
+              "loanCount": 35,
+              "totalBalance": "8274820.84",
+              "averageInterestRate": "0.14910909",
+              "hasChildren": false
+            }
+          ]
+        },
+        "borrowerType": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": "CORPORATE",
+              "label": "CORPORATE",
+              "loanCount": 220,
+              "totalBalance": "131759063.06",
+              "averageInterestRate": "0.13943701",
+              "hasChildren": false
+            },
+            {
+              "key": "INDIVIDUAL",
+              "label": "INDIVIDUAL",
+              "loanCount": 445,
+              "totalBalance": "85640598.01",
+              "averageInterestRate": "0.13977741",
+              "hasChildren": false
+            }
+          ]
+        },
+        "riskRating": {
+          "matchesSql": true,
+          "groups": [
+            {
+              "key": "HIGH",
+              "label": "HIGH",
+              "loanCount": 38,
+              "totalBalance": "14361197.90",
+              "averageInterestRate": "0.14241351",
+              "hasChildren": false
+            },
+            {
+              "key": "LOW",
+              "label": "LOW",
+              "loanCount": 526,
+              "totalBalance": "161641546.02",
+              "averageInterestRate": "0.14016680",
+              "hasChildren": false
+            },
+            {
+              "key": "MEDIUM",
+              "label": "MEDIUM",
+              "loanCount": 101,
+              "totalBalance": "41396917.15",
+              "averageInterestRate": "0.13612222",
+              "hasChildren": false
+            }
+          ]
+        }
+      },
+      "pagination": {
+        "pages": 21,
+        "uniqueLoans": 143,
+        "nestedChildrenReconciled": true
+      },
+      "successfulRun": {
+        "jobId": "F9DC96E3-E8BF-4A82-A596-D3DA83D3652E",
+        "runId": "f954c8dc-9d80-4862-a421-77ec0f7cdd44",
+        "httpStatus": 202,
+        "submissionMs": 51.65,
+        "runningObserved": true,
+        "stagedBatchProgress": [
+          100,
+          200,
+          300,
+          400,
+          500,
+          600,
+          665
+        ],
+        "oldPublicationRetainedBeforePublish": true,
+        "publicationChanged": true
+      },
+      "activeLoans": 665
+    }
+  ],
+  "failure": {
+    "status": "FAILED",
+    "errorCode": "SOURCE_SNAPSHOT_CHANGED",
+    "previousPublicationPreserved": true,
+    "sameKeySameJob": true,
+    "crossTenantStatus": 404,
+    "reportingOnlySubmissionStatus": 403
+  },
+  "inactiveUnrated": 166,
+  "success": true
+}

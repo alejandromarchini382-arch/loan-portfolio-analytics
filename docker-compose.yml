@@ -76,5 +76,33 @@ services:
       retries: 6
     restart: unless-stopped
 
+  spring-boot-api:
+    profiles: [backend]
+    image: axis-portfolio:local
+    build: ./spring-boot
+    environment:
+      PORTFOLIO_DB_HOST: sqlserver
+      PORTFOLIO_DATABASE: ${PORTFOLIO_DATABASE:-LoanPortfolio}
+      PORTFOLIO_DB_USER: ${PORTFOLIO_DB_USER:-}
+      PORTFOLIO_DB_PASSWORD: ${PORTFOLIO_DB_PASSWORD:-}
+      PORTFOLIO_TRUST_CERTIFICATE: "true"
+      PORTFOLIO_CURSOR_SECRET: ${PORTFOLIO_CURSOR_SECRET:-}
+      PORTFOLIO_CORS_ORIGINS: ${PORTFOLIO_CORS_ORIGINS:-}
+      RISK_AUTH_MODE: ${RISK_AUTH_MODE:-}
+      RISK_JWT_SECRET: ${RISK_JWT_SECRET:-}
+      RISK_JWT_ISSUER: ${RISK_JWT_ISSUER:-}
+      RISK_JWT_AUDIENCE: ${RISK_JWT_AUDIENCE:-}
+      RISK_TENANTS: ${RISK_TENANTS:-}
+      FLASK_BASE_URL: http://risk-api:8000
+    ports:
+      - "127.0.0.1:${PORTFOLIO_PORT:-8081}:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 128
+    restart: unless-stopped
+
 volumes:
   sqlserver-data:

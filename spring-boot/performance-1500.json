@@ -1,0 +1,37 @@
+{
+  "loansAcrossTwoTenants": 1500,
+  "httpMeasurements": {
+    "division": {
+      "samples": 20,
+      "p50Ms": 63.895,
+      "p95Ms": 92.192
+    },
+    "loanOfficer": {
+      "samples": 20,
+      "p50Ms": 26.441,
+      "p95Ms": 68.991
+    },
+    "borrowerType": {
+      "samples": 20,
+      "p50Ms": 21.36,
+      "p95Ms": 62.93
+    },
+    "riskRating": {
+      "samples": 20,
+      "p50Ms": 24.413,
+      "p95Ms": 50.922
+    },
+    "children": {
+      "samples": 20,
+      "p50Ms": 19.975,
+      "p95Ms": 62.652
+    },
+    "loans": {
+      "samples": 20,
+      "p50Ms": 20.397,
+      "p95Ms": 63.797
+    }
+  },
+  "environment": "local Java 17 Docker API, 1 CPU/512MiB container; existing SQL Server",
+  "productionGuarantee": false
+}

@@ -1,6 +1,6 @@
 # AXIS Loan Portfolio Analytics — Data Contract
 
-**Contract version:** `0.3.0` (assessment prototype)  
+**Contract version:** `0.4.0` (assessment prototype)
 **Status:** Proposed; not an approved lender data model or credit-risk policy  
 **Source of truth:** `AIO_Logic_-_Senior_Full-Stack_Developer_Technical_Assessment.pdf`  
 **Related:** [`architecture.md`](architecture.md), [`decisions.md`](decisions.md)
@@ -654,3 +654,62 @@ The standalone scheduler --once command uses the same submission path and a UTC 
 Its optional loop defaults to 86400-second intervals; host cron can instead invoke --once at an explicitly chosen time.
 It is not embedded in Flask workers and is not an extra always-on Compose service. The selected nightly time and
 upstream balance-refresh ordering remain operator responsibilities; scheduling does not recalculate balances.
+
+## 12. Spring reporting service (2026-10-31)
+
+The Spring Boot application lives in spring-boot and uses Java 17 / Spring JDBC. Existing SQL tables, indexes,
+PublishedLoanPortfolio and PublishRiskRun remain unchanged. Every reporting data query reads PublishedLoanPortfolio
+with a verified tenant predicate; job/publication metadata reads also bind that tenant. No staging table is queried
+by Java. A separate account belongs only to the existing analytics_reader role.
+
+### 12.1 Authentication and endpoint additions
+
+The explicitly enabled development-jwt contract is shared: HS256, existing issuer/audience/tenant allowlist, required
+exp/iat/sub/tenantId/permissions claims. The known permission vocabulary adds portfolio:read; risk:read and risk:run
+checks are unchanged. Existing token-tool defaults remain risk:read + risk:run; portfolio:read must be requested
+explicitly. Portfolio permission alone never grants risk submission or risk-status access.
+
+- GET /api/v1/portfolio/metadata requires portfolio:read. Response: dimensions [{value,label}], maxDepth:2,
+  defaultStatus:ACTIVE, defaultLimit:50, maxLimit:100, currency:USD, rateUnit:fractionPerYear. Dimension values are
+  division, loanOfficer, borrowerType and riskRating (not loanRiskRating).
+- Existing groups/children/loans routes and JSON fields in section 6 require portfolio:read. Filters use exact enums,
+  bounded labels and ISO dates. Unknown/repeated parameters, tenant overrides, unsupported sorting and invalid parent
+  paths return 400. hasChildren describes a second grouping level; leaves fetch loans, including primary-only leaves.
+- GET risk-runs/latest and GET risk-runs/{jobId} require risk:read. POST risk-runs requires risk:run, empty JSON and
+  Idempotency-Key. POST forwards the original verified bearer token to the configured internal Flask URL, then resolves
+  the tenant-qualified RunId to JobId. No unrestricted delegation credential or caller-selected tenant is used.
+- Health-only Actuator liveness/readiness endpoints are anonymous and expose status only. Other API errors retain the
+  section 6 envelope with a generated requestId; no SQL, tokens or connection details are exposed.
+
+Group results are returned for the selected level only. The prototype's low-cardinality dimensions have a safety cap
+of 100 groups; a larger result returns GROUP_LIMIT_EXCEEDED (400), never silently truncates. Group paging is deferred;
+loan paging is implemented with the existing 50 default / 100 maximum. Null keys remain null; only presentation labels
+use Unassigned or Unrated. Rates serialize as eight-place fractional decimal strings; money as two-place strings.
+
+### 12.2 Response consistency and cursors
+
+snapshotVersion is the current tenant-wide MAX(SourceVersion), or 0 for no source rows. It is a source watermark,
+not a risk version or a globally unique portfolio revision. asOfUtc is MAX(LastSyncedUtc), null before any source row.
+riskRunId is the current tenant publication UUID, null before first publication (including for empty populations).
+Readers display current source facts with the last successful loan-risk publication, as in the existing view.
+
+A reporting response executes one SQL statement containing both metadata and the requested aggregates/page. At startup
+Java inspects the existing RCSI setting. With RCSI enabled this uses one versioned READ COMMITTED statement; when it is
+disabled, HOLDLOCK hints on the source view and publication metadata provide statement-duration serializable reads.
+Autocommit and a bounded query timeout release locks as soon as that statement completes. No database isolation option
+is changed; no read transaction encloses an HTTP call or spans frontend requests. HTTP latency and publication visibility are exercised in integration tests; no claim of zero publication contention
+is made.
+
+Loan order is LoanNumber ASC, LoanId ASC (SQL Server comparison rules). Opaque HMAC-SHA256 cursors contain tenant,
+canonical filter/group-path fingerprint, position, source watermark/as-of, publication UUID and expiration. A separate
+>=32-byte environment key signs them. Defaults: cursor lifetime 900 seconds, max 3600. Malformed/expired/foreign-scope
+cursors return INVALID_CURSOR (400); changed source/as-of/publication returns SNAPSHOT_CHANGED (409), requiring refresh.
+Data may change between requests; watermark/as-of cannot prove a permanently pinned snapshot or detect nonconforming
+upstream writes. Source writers must advance versions and refresh LastSyncedUtc. No snapshot-management tables are added.
+
+### 12.3 Operational limits
+
+Default read query timeout 5 seconds, JDBC login/connect timeout 5 seconds, Hikari pool maximum 5 connections, per-tenant
+in-process request limit 120/minute. Limits are configurable and bounded; the per-instance limiter is not distributed.
+CORS defaults to no allowed cross-origin access and uses an explicit configured origin list when enabled. Development
+HTTP binds localhost only; production still requires HTTPS/OIDC/secret rotation and reviewed tenant/division scopes.
