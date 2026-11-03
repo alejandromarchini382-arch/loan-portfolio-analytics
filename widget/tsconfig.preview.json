@@ -1,0 +1,5 @@
+{
+    "extends": "./tsconfig.json",
+    "include": ["src", "typings", "preview"],
+    "exclude": ["src/**/__tests__/**"]
+}

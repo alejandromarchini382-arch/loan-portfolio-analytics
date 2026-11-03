@@ -1,4 +1,4 @@
-# reporting API implementation backend validation - 2026-10-31
+# Reporting API validation - 2026-10-31
 
 Implemented under spring-boot with Java 17, Spring Boot 3.5.16, Maven Wrapper 3.9.11 and JDBC. No React/Mendix changes,
 SQL table/index changes, new database objects or PublishRiskRun modifications. The only Flask behavior addition accepts
@@ -48,7 +48,7 @@ analytics-flask/.venv/Scripts/python.exe -B -m pytest sql/tests analytics-flask/
 
 That combined run contains 33 SQL and 73 Flask cases, including SQL smoke tests and the new reporting-only permission test.
 All final suites executed without skips: 156 passing cases across 45 Java, 5 HTTP integration and 106 SQL/Flask tests.
-The preceding [risk service implementation gate](phase2-validation.md) separately records33 SQL,72 Flask and105 combined passes before that
+The preceding [SQL and risk validation](risk-service-validation.md) separately records33 SQL,72 Flask and105 combined passes before that
 permission test. No coverage percentage is claimed.
 
 ## Docker and local environment

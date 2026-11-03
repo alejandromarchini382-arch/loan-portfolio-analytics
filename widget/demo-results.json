@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-03",
+  "data": "Existing fictional persistent fixture; no reset, seed or authorized risk mutation",
+  "mode": "Read-only Spring HTTP corroboration of browser evidence",
+  "tenants": [
+    {
+      "tenantAlias": "A",
+      "activeLoans": 669,
+      "totalBalance": "248964756.01",
+      "riskGroups": [
+        {
+          "key": "HIGH",
+          "label": "HIGH",
+          "loanCount": 27,
+          "totalBalance": "13099318.24",
+          "averageInterestRate": "0.14091153",
+          "hasChildren": false
+        },
+        {
+          "key": "LOW",
+          "label": "LOW",
+          "loanCount": 550,
+          "totalBalance": "200820342.09",
+          "averageInterestRate": "0.13490391",
+          "hasChildren": false
+        },
+        {
+          "key": "MEDIUM",
+          "label": "MEDIUM",
+          "loanCount": 92,
+          "totalBalance": "35045095.68",
+          "averageInterestRate": "0.13618888",
+          "hasChildren": false
+        }
+      ],
+      "sourceVersion": 3,
+      "publishedRunId": "51C96987-331F-4C06-95CF-C449F432FC3C",
+      "latestStatus": {
+        "runId": "51C96987-331F-4C06-95CF-C449F432FC3C",
+        "policyVersion": "risk-demo-v1",
+        "publishedAtUtc": "2026-10-31T10:34:13.078Z",
+        "jobStatus": "FAILED",
+        "lastRequestedAtUtc": "2026-10-31T10:34:21.943Z"
+      },
+      "riskGroupsUnchangedSincePhase3": true
+    },
+    {
+      "tenantAlias": "B",
+      "activeLoans": 665,
+      "totalBalance": "217399661.07",
+      "riskGroups": [
+        {
+          "key": "HIGH",
+          "label": "HIGH",
+          "loanCount": 38,
+          "totalBalance": "14361197.90",
+          "averageInterestRate": "0.14241351",
+          "hasChildren": false
+        },
+        {
+          "key": "LOW",
+          "label": "LOW",
+          "loanCount": 526,
+          "totalBalance": "161641546.02",
+          "averageInterestRate": "0.14016680",
+          "hasChildren": false
+        },
+        {
+          "key": "MEDIUM",
+          "label": "MEDIUM",
+          "loanCount": 101,
+          "totalBalance": "41396917.15",
+          "averageInterestRate": "0.13612222",
+          "hasChildren": false
+        }
+      ],
+      "sourceVersion": 1,
+      "publishedRunId": "F954C8DC-9D80-4862-A421-77EC0F7CDD44",
+      "latestStatus": {
+        "runId": "F954C8DC-9D80-4862-A421-77EC0F7CDD44",
+        "policyVersion": "risk-demo-v1",
+        "publishedAtUtc": "2026-10-31T10:34:15.471Z",
+        "jobStatus": "SUCCEEDED",
+        "lastRequestedAtUtc": "2026-10-31T10:34:14.025Z"
+      },
+      "riskGroupsUnchangedSincePhase3": true
+    }
+  ]
+}

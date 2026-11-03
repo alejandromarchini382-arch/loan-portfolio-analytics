@@ -1,4 +1,4 @@
-# widget implementation validation - 2026-11-03
+# Widget validation - 2026-11-03
 
 Scope: the actual React/TypeScript Mendix pluggable web widget in widget/. SQL Server, Flask, Spring Boot and Compose
 source remain unchanged. The existing persistent1500-loan fixture was neither reset nor reseeded. The earlier156 backend
@@ -156,7 +156,7 @@ MPK, lockfile, source, generated typings and compact evidence are retained for a
 
 ## Mendix integration and limitations
 
-Follow [phase5-integration.md](phase5-integration.md) for actual package import, protected page/Data View setup,
+Follow [mendix-integration.md](mendix-integration.md) for actual package import, protected page/Data View setup,
 nonpersistent session fields, property expressions, secure role/tenant mapping, renewal, CORS/HTTPS and manual acceptance.
 Missing session inputs fail closed; UI hints never authorize the backend. No production issuer/token exchange/OIDC
 platform is implemented in the widget. No production or sustained-load measurement is claimed.

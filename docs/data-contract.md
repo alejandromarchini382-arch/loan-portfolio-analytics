@@ -720,8 +720,8 @@ The real Mendix web widget lives in widget/. Its generated XML configures API ba
 UI title, risk-control visibility and dynamic authentication context. The application supplies short-lived token,
 session/scope identity and Boolean risk permission hints through Mendix expressions, with an optional renewal action.
 These are UI integration inputs, not an authorization boundary; Spring validates the bearer identity and permissions.
-There is no caller-selected tenant, signing secret or token issuer in the widget. Identity change clears all cached
-responses, cursors, pending idempotency keys and polling. Trusted acquisition/renewal remains browser demonstration integration work.
+The widget accepts no caller-selected tenant and contains no signing secret or token issuer. Identity change clears all cached
+responses, cursors, pending idempotency keys and polling. Trusted Mendix acquisition/renewal remains deferred integration work.
 
 Metadata drives grouping options; root/child/loan requests use sections6/12 unchanged. Complete root group counts and
 balances may be summed exactly for the selected population. An overall interest average is omitted because group
@@ -730,3 +730,20 @@ Local caches are scoped to authentication context, query/filter/path/page and al
 The widget never decodes or creates pagination cursors. Snapshot mismatch refreshes root data rather than combining
 responses. Existing jobs discovered through latest have no fabricated jobId; detailed polling uses only an actual
 jobId returned by POST. Failed/running jobs retain displayed published reports. No backend change is required.
+
+## 14. Local browser demonstration boundary (2026-11-03)
+
+The browser demonstration provides an additional validation surface using the existing widget components. Studio Pro is excluded.
+Synthetic mode has no authenticated proxy or backend calls. Real mode uses a loopback session server and the actual
+Spring portfolio routes without fixtures/fallback. Production Mendix token acquisition and API contracts are unchanged.
+
+The operator launcher uses only configured authorized tenants to prepare short-lived tokens server-side. Fixed profile
+IDs/codes select preconfigured scope; browser-supplied tenants, permissions and JWT claims are never accepted. The browser
+receives only an opaque expiring cookie, CSRF proof, scope and UI permission hints. All proxy calls require that session
+and proof. The demo adapter removes its internal compatibility Authorization header before network I/O; the server adds
+its session-bound JWT. No JWT/signing secret is returned in HTML, scripts, JSON, URLs or browser storage.
+
+Only documented GET portfolio routes and opt-in POST risk-runs are proxied to a fixed local Spring address. Host/Origin,
+method, session expiry, CSRF, body limits and upstream timeouts are enforced. POST risk requires startup opt-in and an
+operator profile; Spring remains authoritative. Normal demonstrations/tests submit no authorized risk jobs. Expired
+startup tokens require relaunch, not an unrestricted renewal/token endpoint. Identity/logout clears widget state.

@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    background: #eef2f7;
+    color: #172b44;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.axis-demo-banner {
+    margin: 0;
+    padding: 12px 24px;
+    background: #172b44;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+}
+.axis-demo-shell {
+    max-width: 1500px;
+    margin: 24px auto;
+    padding: 0 18px;
+}
+.axis-demo-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    font-size: 12px;
+}
+.axis-demo-toolbar label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+.axis-demo-toolbar select,
+.axis-demo-toolbar button {
+    border: 1px solid #9bafc2;
+    border-radius: 6px;
+    background: white;
+    padding: 8px 12px;
+    color: #172b44;
+}
+.axis-demo-login {
+    max-width: 580px;
+    margin: 65px auto;
+}
+.axis-demo-login h1 {
+    margin: 8px 0 16px;
+}
+.axis-demo-login form {
+    display: grid;
+    gap: 18px;
+    margin: 24px 0;
+}
+.axis-demo-login p {
+    color: #455c72;
+}
+.axis-demo-message {
+    border-left: 4px solid #ad6200;
+    background: #fff5dc;
+    padding: 14px;
+}
+.axis-demo-toolbar :focus-visible {
+    outline: 3px solid #ad6200;
+    outline-offset: 2px;
+}
+@media (max-width: 650px) {
+    .axis-demo-toolbar label {
+        margin-left: 0;
+    }
+    .axis-demo-shell {
+        padding: 0 8px;
+        margin: 12px auto;
+    }
+    .axis-demo-login {
+        margin: 25px auto;
+    }
+}

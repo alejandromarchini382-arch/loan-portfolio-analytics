@@ -1,4 +1,4 @@
-# risk service implementation final validation - 2026-10-31
+# SQL and risk service validation - 2026-10-31
 
 Restarted existing stopped containers with `docker compose --profile risk start`; retained credentials, volume and
 published demo data. All three services became healthy. SQL reports RCSI disabled and snapshot isolation state 0.

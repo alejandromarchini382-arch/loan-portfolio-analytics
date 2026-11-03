@@ -516,4 +516,15 @@ source/as-of/publication versions. Exact root sums use Big.js; group averages co
 invented. Risk controls use actual jobIds only, retain published reports and preserve uncertain POST idempotency keys.
 Supported dynamic expressions adapt an injectable authentication provider. A session scope change remounts all data
 state; same-session token renewal updates the provider without losing pending intent. Trusted token acquisition,
-Mendix import/rendering and browser CORS remain unverified Mendix integration work. See widget/README.md and phase4-validation.md.
+Mendix import/rendering and browser CORS remain unverified Mendix integration work. See widget/README.md and widget-validation.md.
+
+
+## Browser validation surface
+
+An explicit real/synthetic launcher extends the existing preview; it reuses PortfolioDashboard and its actual API client,
+components and formatting. The production Mendix widget authentication boundary is unchanged. Real browser requests use
+an opaque HttpOnly/SameSite cookie plus CSRF proof to a loopback-only allowlisted proxy. Server-held, pre-authorized,
+short-lived JWTs are attached only upstream to Spring. Signing secrets remain in the operator launcher, and Spring
+continues to enforce tenant/permissions. No backend, SQL or Compose changes were needed. Real errors remain errors;
+synthetic mode has no authenticated proxy or backend connectivity. See contract section 14 and widget/README.md.
+Studio Pro, operational Mendix CRUD/synchronization and trusted runtime authentication remain explicitly unverified.

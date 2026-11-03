@@ -20,3 +20,6 @@ mendixProject
 **/artifacts
 
 .preview/
+.demo/
+playwright-report/
+test-results/

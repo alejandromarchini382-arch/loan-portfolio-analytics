@@ -136,4 +136,4 @@ boundaries, CORS, error sanitization and rate limiting. HTTP tests use actual SQ
 containers/worker code, including 1500/15000 datasets. Performance JSON files record 20 warmed local HTTP samples per
 operation (p50/p95), not load/concurrency guarantees. No extra indexes are added without plan evidence.
 
-Actual execution results are recorded in [Phase 3 validation](../docs/phase3-validation.md).
+Actual execution results are recorded in [Reporting API validation](../docs/reporting-api-validation.md).

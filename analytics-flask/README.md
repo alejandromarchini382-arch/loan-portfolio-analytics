@@ -219,7 +219,7 @@ Spring Boot now exposes the public portfolio interface and delegates risk submis
 verified JWT. The permission vocabulary additionally accepts portfolio:read, but the token helper's defaults remain
 risk:read + risk:run. A reporting-only token cannot submit or inspect risk runs. Use repeatable --permission flags to
 request explicit grants; the Spring README shows the container-based command without exposing bearer tokens.
-See [frontend integration](../docs/frontend-integration.md) and [final backend validation](../docs/phase3-validation.md).
+See [frontend integration](../docs/frontend-integration.md) and [final backend validation](../docs/reporting-api-validation.md).
 The SQL/Flask results above are historical; the latest regression and HTTP integration results are recorded separately.
 On this checkout RISK_TEST_HOST=127.0.0.1,11433 and SQLSERVER_PORT=11433 compensate for a Windows reserved-port range;
 container-to-container SQL connections remain sqlserver,1433. Preserve .env and the named database volume.

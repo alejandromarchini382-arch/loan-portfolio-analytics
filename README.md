@@ -1,7 +1,8 @@
 # AXIS Loan Portfolio Analytics
 
 Assessment prototype: SQL Server data layer, Flask risk computation and Spring Boot reporting are implemented.
-The custom Mendix React widget source/package is now available; Mendix application integration remains the next phase.
+The custom Mendix React widget source/package and an additional real-backend browser demonstration are available.
+Mendix Studio Pro import and runtime integration remain unverified.
 
 | Component | Implementation / setup |
 | --- | --- |
@@ -37,19 +38,45 @@ latest HTTP reporting/delegation demonstration; [risk service implementation res
 
 ## Validation and next phase
 
-[risk service implementation validation](docs/phase2-validation.md) records the completed gate before reporting changes.
-[reporting API implementation validation](docs/phase3-validation.md) records final executed commands/results, corrections and limitations.
+[SQL and risk validation](docs/risk-service-validation.md) records the completed gate before reporting changes.
+[Reporting API validation](docs/reporting-api-validation.md) records final executed commands/results, corrections and limitations.
 Component READMEs explain JUnit, pytest and opt-in disposable SQL/HTTP integration tests. No tests are assumed to pass
 merely because a command is documented. Java 17 runs in Docker; the host Java 23 installation is unchanged.
 
-Next: import the delivered widget, connect the trusted session bridge, then embed and smoke-test
-it in Mendix Studio Pro. OIDC/HTTPS production integration, Mendix synchronization, .mpk export and final submission
-remain outstanding assessment work. No Redis, Kafka, RabbitMQ, JPA or additional runtime infrastructure was introduced.
+The widget MPK is delivered. Remaining work: import it, connect a trusted session bridge and embed/smoke-test
+it in Mendix Studio Pro. A real Mendix operational app/export, OIDC/HTTPS production integration, synchronization and final
+submission remain outstanding assessment work. No Redis, Kafka, RabbitMQ, JPA or additional runtime infrastructure was introduced.
 
 
-## widget implementation widget
+## Mendix widget
 
 The actual Mendix React/TypeScript widget source, official build setup, lockfile and MPK are in
-[widget](widget/README.md). [widget implementation validation](docs/phase4-validation.md) records executed checks; Studio Pro import,
-runtime rendering and trusted Mendix authentication remain pending. Follow the precise [browser demonstration handoff](docs/phase5-integration.md).
+[widget](widget/README.md). [Widget validation](docs/widget-validation.md) records executed checks; Studio Pro import,
+runtime rendering and trusted Mendix authentication remain pending. Follow the precise [deferred Mendix handoff](docs/mendix-integration.md).
 The backend components and persistent fixture are unchanged. No commit or push is performed automatically.
+
+
+## Real browser demonstration
+
+The existing React widget dashboard runs against the real Spring API through a restricted localhost session proxy.
+Synthetic preview is a separately labelled mode with no backend calls. JWTs remain server-side; there are no browser
+signing secrets, stored bearer tokens or automatic risk jobs. No backend source or persistent data was changed.
+
+With the existing authorized ignored .env, initialized fixture and supported Node/npm/Python installed:
+
+```powershell
+docker compose --profile risk --profile backend up -d --no-build --wait
+npm --prefix widget run preview:build
+analytics-flask/.venv/Scripts/python.exe -B widget/scripts/demo.py --mode real --port 3099
+```
+
+Open **http://127.0.0.1:3099**. The launcher prints the path of a private, ignored access-code file; open it locally and
+use the matching profile/code. Sessions/startup credentials expire within 15 minutes. Relaunch to renew; Ctrl+C cleans
+up the launcher. Do not expose this development server publicly or reset/reseed the database.
+
+[Widget setup and reviewer walkthrough](widget/README.md#browser-demonstration),
+[browser demonstration results](docs/browser-demo-validation.md), [redacted screenshots](widget/evidence/browser-demo), and
+[Submission checklist](docs/submission-checklist.md) explain reproduction, tests, security and remaining work.
+
+**The official Mendix `.mpk` package was built and validated, but Studio Pro import and Mendix runtime execution were
+not performed.** The browser demonstration is an additional validation surface, not a completed Mendix application.

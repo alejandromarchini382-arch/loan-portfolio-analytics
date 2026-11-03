@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-03",
+  "browser": "Installed Google Chrome 156.0.8078.79 (Playwright chrome channel)",
+  "playwright": "1.64.1",
+  "stats": {
+    "startTime": "2026-11-03T11:09:56.882Z",
+    "duration": 34348.926999999996,
+    "expected": 22,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "mocked-browser": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "real-backend-browser": {
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    "synthetic-browser": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "authorizedRiskRunsSubmitted": 0,
+  "jwtStorage": "Server memory only; opaque HttpOnly browser cookie",
+  "screenshots": "evidence/browser-demo; borrower/loan identifying cells masked",
+  "mendixStudioPro": "NOT RUN",
+  "mendixRuntime": "NOT RUN",
+  "directBrowserCors": "NOT RUN; demo uses restricted same-origin proxy"
+}

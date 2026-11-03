@@ -26,14 +26,21 @@
     "prerelease": "npm run lint",
     "release": "pluggable-widgets-tools release:web",
     "typecheck": "tsc --noEmit",
-    "format": "prettier --write src typings \"scripts/*.cjs\" \"preview/*.mjs\"",
-    "format:check": "prettier --check src typings \"scripts/*.cjs\" \"preview/*.mjs\"",
+    "format": "prettier --write src typings preview browser \"scripts/*.cjs\" .eslintrc.demo.cjs playwright.config.cjs tsconfig.preview.json",
+    "format:check": "prettier --check src typings preview browser \"scripts/*.cjs\" .eslintrc.demo.cjs playwright.config.cjs tsconfig.preview.json",
     "check": "node scripts/check.cjs",
     "preview:build": "rollup -c scripts/preview.config.cjs",
-    "preview:serve": "node scripts/preview-server.cjs"
+    "preview:serve": "node scripts/preview-server.cjs",
+    "typecheck:preview": "tsc --noEmit -p tsconfig.preview.json",
+    "test:demo-server": "node --test scripts/demo-server.test.cjs",
+    "lint:demo": "eslint --no-eslintrc --config .eslintrc.demo.cjs --ext .ts,.tsx,.mjs,.cjs preview browser scripts/demo-server.cjs scripts/demo-server.test.cjs playwright.config.cjs --max-warnings 0",
+    "test:browser": "playwright test -c playwright.config.cjs",
+    "test:browser:mocked": "npm run test:browser -- --project mocked-browser --project synthetic-browser",
+    "test:browser:real": "npm run test:browser -- --project real-backend-browser"
   },
   "devDependencies": {
     "@mendix/pluggable-widgets-tools": "11.15.0",
+    "@playwright/test": "1.64.1",
     "@types/big.js": "6.2.2",
     "@types/jest": "30.0.0"
   },

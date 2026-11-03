@@ -1,4 +1,7 @@
-# browser demonstration - Mendix integration handoff
+# Deferred Mendix integration handoff
+
+The browser demonstration runs outside Studio Pro. See [Browser demo validation](browser-demo-validation.md)
+and [Submission checklist](submission-checklist.md). The manual Mendix steps below remain deferred and unverified.
 
 The repository includes widget source and the official MPK. No real Mendix application exists in this checkout; mendix-app/
 contains a placeholder only. Import, runtime rendering and trusted Mendix-to-Spring authentication have NOT been tested.

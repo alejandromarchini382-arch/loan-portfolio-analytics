@@ -39,7 +39,7 @@ check runs Prettier, ESLint with the generated Mendix configuration, TypeScript,
 official configuration, and official release:web packaging. Child exit codes are checked explicitly. package-check.py
 validates the ZIP/XML/assets and copies the official release into releases/; it never synthesizes an MPK.
 Tests use synthetic fixtures/mocks and never issue authorized production risk jobs. Details are recorded in
-[widget implementation validation](../docs/phase4-validation.md).
+[Widget validation](../docs/widget-validation.md).
 
 This checkout also has a verified project-local Node 22.23.4, useful while host Node remains22.18:
 
@@ -101,7 +101,7 @@ parameter exists. UI permission hints are not security enforcement; Spring autho
 | renewSession | optional action | Updates bound session properties; execute() does not return a token |
 
 The XML requires an entity context. Missing/invalid configuration or unavailable session values fail closed before data
-requests. Preview mode makes no API calls and displays no token. See the [browser demonstration handoff](../docs/phase5-integration.md)
+requests. Mendix editor preview makes no API calls and displays no token. See the [Mendix integration handoff](../docs/mendix-integration.md)
 for the required nonpersistent context and trusted renewal boundary. Production OIDC/trusted acquisition is not implemented
 by a widget package. This widget never signs JWTs or contains database/service credentials.
 
@@ -139,32 +139,113 @@ A submission-only user can submit but cannot inspect status; totals/progress are
 an authorization/origin issue,429 is bounded, and503 has manual retry. No infinite auth retries or automatic failed-job
 resubmission. Failed report refreshes retain the prior valid data with a visible error.
 
-## Real HTTP checks and optional visual harness
+## Browser demonstration
 
-With the existing backend healthy and ignored local development credentials available:
+The additional browser surface renders the same `PortfolioDashboard`, grouping/loan tables, filters, formatting and
+risk components. Production source/entrypoint, XML, typings, preview component and authentication provider are unchanged.
+The official Mendix `.mpk` package was built and validated, but Studio Pro import and Mendix runtime execution were not
+performed. This browser demonstration is not a working Mendix application.
+
+### Real backend mode
+
+Requirements: supported Node/npm above, existing Flask Python 3.11 virtualenv/dependencies, authorized ignored root
+`.env`, and the initialized backend/fictional published fixture described in the component READMEs. Preserve the SQL volume and
+publications. From the repository root:
 
 ```powershell
+docker compose --profile risk --profile backend config --quiet
+docker compose --profile risk --profile backend up -d --no-build --wait
 docker compose ps
-analytics-flask/.venv/Scripts/python.exe -B widget/scripts/backend-tests.py
+Invoke-RestMethod http://127.0.0.1:8081/actuator/health/readiness
+npm --prefix widget run preview:build
+analytics-flask/.venv/Scripts/python.exe -B widget/scripts/demo.py --mode real --port 3099
 ```
 
-This opt-in launcher invokes the actual TypeScript client against Spring, minting restricted local test tokens only in
-process memory via the existing operator helper. It submits no authorized risk jobs and writes only aggregate test
-summaries to integration-results.json. It does not reset SQL data. Node HTTP checks do not validate browser CORS.
+Open **http://127.0.0.1:3099** (use this exact IP, not localhost). The launcher prints a private access-code **file path**,
+not credentials. Open that ignored file locally, select the matching profile and paste its code into the password field.
+Do not share the file, print its contents in test logs or put codes into URLs. Windows ACLs restrict it to the current
+user; POSIX uses mode 0600. Stop with Ctrl+C, which removes the file and stops the child server.
+
+Default profiles: `tenant-a` and `tenant-b` allow reporting plus risk status; `viewer-a` allows reporting only. Profile
+codes select server-configured authorized scopes; the browser cannot supply tenant IDs or permissions. All credentials
+expire at most 15 minutes after launch, even following another login. Relaunch to renew; no public token issuer exists.
+`--session-seconds 60` can shorten sessions. The launcher uses the configured `PORTFOLIO_PORT` (8081 by default),
+`RISK_TENANTS` and existing `RISK_AUTH_MODE`, issuer, audience and signing configuration. It fails closed on invalid
+configuration. Signing material stays in the Python operator process; only pre-authorized JWTs pass over a private stdin
+pipe into the Node server's memory. Child environment keys containing PASSWORD/SECRET/TOKEN are removed. No JWTs are
+written to the access file or sent to the browser.
+
+The browser receives an opaque HttpOnly, SameSite=Strict session cookie, in-memory CSRF proof and opaque scope. Nothing
+is stored in localStorage/sessionStorage. Login/logout, expiry and identity changes discard dashboard caches/polling.
+DemoPortfolioClient extends the existing API client with a demo-only fetch transport: it removes Authorization before
+browser network I/O and uses same-origin session/CSRF headers. Production widget authentication is unchanged.
+
+The proxy binds only 127.0.0.1, checks exact Host/Origin and Fetch Metadata, requires a custom request header and CSRF
+proof, and forwards only GET metadata/groups/children/loans/latest/job status and opt-in POST risk-runs. It has a fixed
+local Spring upstream, bounded bodies/responses and timeout, and follows no redirects. Spring still validates each JWT,
+tenant and permission. No backend CORS setting was changed: this is a same-origin proxy test, not direct browser CORS
+certification. HTTP cookies intentionally lack Secure on this loopback-only development surface. Do not expose it through
+a tunnel, public listener or deployment; HTTPS/OIDC, trusted Mendix sessions and multi-user identity mapping remain work.
+
+Risk jobs are never automatic. Normal demonstrations and all real-backend tests are read-only. Only an explicit
+`--allow-risk-runs` startup opt-in adds `operator-a` with `risk:run`; the operator must then intentionally click the
+existing control. This is a privileged development action and can change publications. Do not enable it simply to view
+published ratings or test against the persistent fixture. Unit proxy tests use a fake upstream for authorized POSTs.
+
+### Synthetic mode
 
 ```powershell
 npm --prefix widget run preview:build
 npm --prefix widget run preview:serve
-# Open http://127.0.0.1:3099 or http://127.0.0.1:3099/?empty=1
+# http://127.0.0.1:3099 or /?empty=1
+# Alternatively: analytics-flask/.venv/Scripts/python.exe -B widget/scripts/demo.py --mode synthetic --port 3101
 ```
 
-This optional localhost-only visual harness renders the actual dashboard with synthetic fixtures, clearly labelled.
-Its CSP forbids network connections, and its client methods are mocked. It is not the primary deliverable, does not
-obtain real tokens, and proves neither authenticated backend connectivity nor Mendix rendering. The harness built, but
-browser automation was unavailable; no screenshots or browser pass are claimed. The temporary server was stopped.
+This separate process/mode has a prominent MOCK DATA banner, mock client, no session/proxy and CSP `connect-src 'none'`.
+Stop the real server before using the same port, or use 3101. Real failures never select synthetic mode or fixtures.
 
-Remaining work includes compatible Studio Pro import, actual Mendix runtime rendering, trusted application token
-acquisition/role mapping, HTTPS/CORS deployment and end-to-end browser checks. The generated toolchain retains legacy
-ESLint/Babel build warnings and9 low-severity development audit advisories; production dependencies audit clean.
-No commit/push is performed. AGENTS.md, .env, .tools, node_modules, dist and temporary reports stay excluded from Git;
-release MPK, source, lockfile and compact validation summaries are retained for assessment delivery.
+### Reviewer walkthrough
+
+1. Sign in as tenant-a, observe metadata-driven Division / Loan officer selectors and SQL-backed totals.
+2. Expand a division, then an officer. Demo page size defaults to 5 (host control offers 5/25/50); use Next/Previous.
+3. Select Loan risk rating; observe actual published groups and separate source/publication timestamps.
+4. Open Portfolio filters; apply status/division/type/rating/dates. Select no secondary dimension to inspect a null group.
+5. Sign out and sign in as tenant-b; prior data disappears before new requests. Reporting-only viewer hides risk controls;
+   manually attempting risk status still receives Spring 403. No tenant/body field grants authority.
+6. For controlled empty/loading/error/stale-request scenarios use the separate mocked browser suite. Do not stop SQL,
+   alter sources, reseed, or submit risk jobs to manufacture screenshot states.
+
+### Tests and evidence
+
+With the protected real launcher still running in another terminal (fresh access codes, default permissions):
+
+```powershell
+npm --prefix widget run check
+analytics-flask/.venv/Scripts/python.exe -B widget/scripts/package-check.py
+analytics-flask/.venv/Scripts/python.exe -B widget/scripts/backend-tests.py
+$env:DEMO_TEST_URL = 'http://127.0.0.1:3099'
+npm --prefix widget run test:browser
+# Or separated projects:
+npm --prefix widget run test:browser:mocked
+npm --prefix widget run test:browser:real
+```
+
+`check` executes existing 72 Jest unit/component cases, formatting, generated production ESLint/TypeScript, additional
+preview ESLint/TypeScript, server-security tests and official release packaging. Package validation inspects the official
+archive and copies it to releases/. The HTTP launcher runs the actual TypeScript client against Spring without authorized
+risk mutations; aggregate-only results go to integration-results.json.
+
+Playwright 1.64.1 uses installed Google Chrome (`chrome` channel), one worker, no retries. Set `DEMO_BROWSER=msedge` only
+with a compatible installed Edge. Bundled Chromium download was denied by its CDN in this environment; installed Chrome
+was used successfully. The synthetic server on 3101 is managed automatically. Real/mock projects require the separately
+launched protected server and latest private code file for the chosen port; no auth bypass or stored bearer is used.
+All browser identities/codes are passed only in local test memory. Trace/video/HAR/storage-state capture is disabled.
+Raw reports/error contexts stay in ignored .demo/. Do not publish them without review. Explicit screenshots in
+[evidence/browser-demo](evidence/browser-demo) mask password fields and loan/borrower-identifying cells; they use fictional fixtures
+and are retained as local validation evidence. `mocked-error.png` is explicitly labelled mocked evidence.
+
+See [Browser demo validation](../docs/browser-demo-validation.md), [browser summary](browser-results.json) and
+[Submission checklist](../docs/submission-checklist.md). Remaining assessment gaps include Studio Pro import/runtime, a real Mendix
+operational app with loan CRUD, a trusted session bridge, synchronization and final submission. Legacy official build
+warnings remain and are recorded separately from failures. Local environment files, tools, node_modules, dist,
+.demo credentials and raw reports are excluded from Git.

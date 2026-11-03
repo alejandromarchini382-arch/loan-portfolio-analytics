@@ -18,7 +18,11 @@ run("formatting", "node_modules/prettier/bin-prettier.js", [
     "src",
     "typings",
     "scripts/*.cjs",
-    "preview/*.mjs",
+    "preview",
+    "browser",
+    ".eslintrc.demo.cjs",
+    "playwright.config.cjs",
+    "tsconfig.preview.json",
     "src/ui/*.css"
 ]);
 run("ESLint (generated configuration)", "node_modules/eslint/bin/eslint.js", [
@@ -30,6 +34,27 @@ run("ESLint (generated configuration)", "node_modules/eslint/bin/eslint.js", [
     "--max-warnings",
     "0"
 ]);
+run("ESLint (demo)", "node_modules/eslint/bin/eslint.js", [
+    "--no-eslintrc",
+    "--config",
+    ".eslintrc.demo.cjs",
+    "--ext",
+    ".ts,.tsx,.mjs,.cjs",
+    "preview",
+    "browser",
+    "scripts/demo-server.cjs",
+    "scripts/demo-server.test.cjs",
+    "playwright.config.cjs",
+    "--max-warnings",
+    "0"
+]);
+run("Preview TypeScript", "node_modules/typescript/bin/tsc", ["--noEmit", "-p", "tsconfig.preview.json"]);
+const serverTests = spawnSync(process.execPath, ["--test", "scripts/demo-server.test.cjs"], {
+    cwd: root,
+    env,
+    stdio: "inherit"
+});
+if (serverTests.status !== 0) process.exit(serverTests.status || 1);
 run("TypeScript", "node_modules/typescript/bin/tsc", ["--noEmit"]);
 run("unit and component tests (official Jest configuration)", "node_modules/jest/bin/jest.js", [
     "--config",

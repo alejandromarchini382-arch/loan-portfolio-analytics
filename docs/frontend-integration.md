@@ -82,6 +82,13 @@ signing secrets/tokens in committed widget properties. The widget package is now
 OIDC integration and upstream Mendix-to-analytics synchronization remain future integration work.
 
 
-For the implemented widget and exact browser demonstration property/session/import steps, see [widget README](../widget/README.md)
-and [browser demonstration handoff](phase5-integration.md). widget implementation evidence distinguishes DOM tests, real HTTP checks and pending
-Studio Pro/browser validation in [phase4-validation.md](phase4-validation.md).
+For the implemented widget and Mendix property/session/import steps, see [widget README](../widget/README.md)
+and [Mendix integration handoff](mendix-integration.md). The widget validation report distinguishes DOM tests, real HTTP checks and pending
+Studio Pro/browser validation in [widget-validation.md](widget-validation.md).
+
+
+The localhost browser demonstration reuses the widget components with a demo-only session transport. JWTs stay
+server-side; the documented Spring routes/permissions and production widget provider are unchanged.
+See [Browser demo validation](browser-demo-validation.md) and [widget setup](../widget/README.md#browser-demonstration).
+This verifies same-origin proxy browser integration; it does not certify direct Mendix-origin CORS, a trusted Mendix
+session bridge, Studio Pro import or runtime execution. Mendix runtime integration remains deferred.

@@ -83,7 +83,7 @@ label it clearly and test it; do not invent another one.
 - ADR-029: Keep two levels and existing routes; add metadata for the widget. Bound groups at 100 with an explicit error
   on overflow, paginate loans at 50/100. Larger group pagination and production OIDC/RLS remain deferred.
 
-## widget implementation widget decisions (2026-11-03)
+## Mendix widget decisions (2026-11-03)
 
 - ADR-030: Use the real official Mendix web widget generator in widget/, retaining entrypoint, XML, generated typings,
   preview and official packaging commands. Generator 11.13.0's template accepts tools ^11.11.0 and React ^19; tools
@@ -97,7 +97,21 @@ label it clearly and test it; do not invent another one.
 - ADR-032: Authentication is an injectable provider, adapted from supported dynamic Mendix expressions for runtime
   access token/session scope and permission hints. An optional action requests renewal by updating bound properties;
   ActionValue.execute does not return a token. No signing/issuing tokens or persistent token storage in the widget.
-  Permission hints affect UI only; Spring remains authoritative. Trusted acquisition is browser demonstration application work.
+  Permission hints affect UI only; Spring remains authoritative. Trusted Mendix authentication integration remains outstanding.
 - ADR-033: Exact sums of complete root aggregate counts/balances are permitted for summary presentation; group rates
   remain authoritative API values. No overall average is invented without non-null-rate counts. Use decimal-safe
   arithmetic/formatting. Existing routes, enums, NULL flags, job/run distinction and publication rules stay unchanged.
+
+## Browser demonstration decisions (2026-11-03)
+
+- ADR-034: Extend the existing preview with explicitly separated synthetic and real modes. Both reuse PortfolioDashboard;
+  the browser demonstration is not a Mendix application. Preserve the production widget authentication interface/MPK.
+- ADR-035: A loopback-only demonstration server holds pre-authorized 15-minute JWTs in memory, obtained at startup through
+  the existing local operator helper. Profile access codes protect opaque expiring HttpOnly/SameSite sessions. Browser
+  memory holds a CSRF proof and opaque scope, never JWTs/signing secrets. No network endpoint mints arbitrary tokens.
+- ADR-036: The demo-only fetch adapter removes the production client's internal Authorization header and uses same-origin
+  session/CSRF transport. A strict route/method proxy attaches the JWT bound to that session; Spring still verifies tenant,
+  signature, issuer/audience/expiry and permissions. No backend/CORS changes. Real-mode errors never become mock results.
+- ADR-037: Chromium Playwright suites distinguish intercepted/mocked browser scenarios from real backend browser tests.
+  Screenshots are redacted; bearer-bearing traces, HAR and authentication storage state are excluded. Existing backend data
+  stays intact, risk mutations require explicit startup opt-in plus a separately authorized operator profile.
