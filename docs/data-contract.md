@@ -1,6 +1,6 @@
 # AXIS Loan Portfolio Analytics — Data Contract
 
-**Contract version:** `0.4.0` (assessment prototype)
+**Contract version:** `0.5.0` (assessment prototype)
 **Status:** Proposed; not an approved lender data model or credit-risk policy  
 **Source of truth:** `AIO_Logic_-_Senior_Full-Stack_Developer_Technical_Assessment.pdf`  
 **Related:** [`architecture.md`](architecture.md), [`decisions.md`](decisions.md)
@@ -713,3 +713,20 @@ Default read query timeout 5 seconds, JDBC login/connect timeout 5 seconds, Hika
 in-process request limit 120/minute. Limits are configurable and bounded; the per-instance limiter is not distributed.
 CORS defaults to no allowed cross-origin access and uses an explicit configured origin list when enabled. Development
 HTTP binds localhost only; production still requires HTTPS/OIDC/secret rotation and reviewed tenant/division scopes.
+
+## 13. Widget boundary (2026-11-03)
+
+The real Mendix web widget lives in widget/. Its generated XML configures API base URL, initial dimensions, page size,
+UI title, risk-control visibility and dynamic authentication context. The application supplies short-lived token,
+session/scope identity and Boolean risk permission hints through Mendix expressions, with an optional renewal action.
+These are UI integration inputs, not an authorization boundary; Spring validates the bearer identity and permissions.
+There is no caller-selected tenant, signing secret or token issuer in the widget. Identity change clears all cached
+responses, cursors, pending idempotency keys and polling. Trusted acquisition/renewal remains browser demonstration integration work.
+
+Metadata drives grouping options; root/child/loan requests use sections6/12 unchanged. Complete root group counts and
+balances may be summed exactly for the selected population. An overall interest average is omitted because group
+responses lack non-null-rate denominators. Each group displays the API average. Null keys remain NULL internally.
+Local caches are scoped to authentication context, query/filter/path/page and all three response-version fields.
+The widget never decodes or creates pagination cursors. Snapshot mismatch refreshes root data rather than combining
+responses. Existing jobs discovered through latest have no fabricated jobId; detailed polling uses only an actual
+jobId returned by POST. Failed/running jobs retain displayed published reports. No backend change is required.

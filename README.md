@@ -1,7 +1,7 @@
 # AXIS Loan Portfolio Analytics
 
 Assessment prototype: SQL Server data layer, Flask risk computation and Spring Boot reporting are implemented.
-The custom Mendix React widget and Mendix application are the next phases; neither is implemented by this change.
+The custom Mendix React widget source/package is now available; Mendix application integration remains the next phase.
 
 | Component | Implementation / setup |
 | --- | --- |
@@ -42,6 +42,14 @@ latest HTTP reporting/delegation demonstration; [risk service implementation res
 Component READMEs explain JUnit, pytest and opt-in disposable SQL/HTTP integration tests. No tests are assumed to pass
 merely because a command is documented. Java 17 runs in Docker; the host Java 23 installation is unchanged.
 
-Next: create the actual Mendix pluggable React/TypeScript widget using the frontend handoff, then embed and smoke-test
+Next: import the delivered widget, connect the trusted session bridge, then embed and smoke-test
 it in Mendix Studio Pro. OIDC/HTTPS production integration, Mendix synchronization, .mpk export and final submission
 remain outstanding assessment work. No Redis, Kafka, RabbitMQ, JPA or additional runtime infrastructure was introduced.
+
+
+## widget implementation widget
+
+The actual Mendix React/TypeScript widget source, official build setup, lockfile and MPK are in
+[widget](widget/README.md). [widget implementation validation](docs/phase4-validation.md) records executed checks; Studio Pro import,
+runtime rendering and trusted Mendix authentication remain pending. Follow the precise [browser demonstration handoff](docs/phase5-integration.md).
+The backend components and persistent fixture are unchanged. No commit or push is performed automatically.

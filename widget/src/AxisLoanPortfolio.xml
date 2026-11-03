@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="axis.loanportfolio.axisloanportfolio.AxisLoanPortfolio"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="false"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>AXIS Loan Portfolio</name>
+    <description>Tenant-scoped loan portfolio analytics with published risk.</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="Portfolio">
+            <property key="apiBaseUrl" type="string">
+                <caption>API base URL</caption>
+                <description>HTTPS reporting service URL; HTTP localhost is allowed for development.</description>
+            </property>
+            <property key="title" type="string" defaultValue="Loan Portfolio Analytics">
+                <caption>Title</caption>
+                <description>Dashboard title.</description>
+            </property>
+            <property key="primary" type="enumeration" defaultValue="division">
+                <caption>Initial primary grouping</caption>
+                <description>Metadata-supported grouping.</description>
+                <enumerationValues>
+                    <enumerationValue key="division">Division</enumerationValue>
+                    <enumerationValue key="loanOfficer">Loan officer</enumerationValue>
+                    <enumerationValue key="borrowerType">Borrower type</enumerationValue>
+                    <enumerationValue key="riskRating">Loan risk rating</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="secondary" type="enumeration" defaultValue="none">
+                <caption>Initial secondary grouping</caption>
+                <description>Optional second level, different from primary.</description>
+                <enumerationValues>
+                    <enumerationValue key="none">None</enumerationValue>
+                    <enumerationValue key="division">Division</enumerationValue>
+                    <enumerationValue key="loanOfficer">Loan officer</enumerationValue>
+                    <enumerationValue key="borrowerType">Borrower type</enumerationValue>
+                    <enumerationValue key="riskRating">Loan risk rating</enumerationValue>
+                </enumerationValues>
+            </property>
+            <property key="pageSize" type="integer" defaultValue="50">
+                <caption>Loan page size</caption>
+                <description>1 to 100, default 50.</description>
+            </property>
+            <property key="showRisk" type="boolean" defaultValue="true">
+                <caption>Show risk controls</caption>
+                <description>Permission hints and API authorization still apply.</description>
+            </property>
+        </propertyGroup>
+        <propertyGroup caption="Trusted session integration">
+            <property key="accessToken" type="expression">
+                <caption>Runtime access token</caption>
+                <description>
+                    Bind a short-lived token supplied by the trusted application. Never enter a shared token or signing
+                    secret as a constant.
+                </description>
+                <returnType type="String" />
+            </property>
+            <property key="sessionScope" type="expression">
+                <caption>Session scope identity</caption>
+                <description>
+                    Opaque user/tenant/session scope from trusted integration. Must change when identity or
+                    authorization scope changes. Never sent as tenant authorization.
+                </description>
+                <returnType type="String" />
+            </property>
+            <property key="canReadRisk" type="expression" defaultValue="false">
+                <caption>Risk status hint</caption>
+                <description>UI hint only. API requires risk:read.</description>
+                <returnType type="Boolean" />
+            </property>
+            <property key="canRunRisk" type="expression" defaultValue="false">
+                <caption>Risk submission hint</caption>
+                <description>UI hint only. API requires risk:run.</description>
+                <returnType type="Boolean" />
+            </property>
+            <property key="renewSession" type="action" required="false">
+                <caption>Renew API session</caption>
+                <description>
+                    Request renewal by updating the bound session values. This action does not return a token.
+                </description>
+            </property>
+        </propertyGroup>
+    </properties>
+</widget>

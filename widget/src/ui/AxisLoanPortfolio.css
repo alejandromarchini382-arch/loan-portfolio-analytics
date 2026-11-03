@@ -1,0 +1,400 @@
+.axis-portfolio {
+    --axis-ink: #172b44;
+    --axis-accent: #086b67;
+    --axis-line: #d9e2eb;
+    color: var(--axis-ink);
+    background: #f5f8fb;
+    border: 1px solid var(--axis-line);
+    border-radius: 12px;
+    padding: clamp(16px, 3vw, 30px);
+    font: 14px/1.5 Inter, "Segoe UI", Arial, sans-serif;
+    max-width: 100%;
+}
+.axis-portfolio *,
+.axis-portfolio *::before,
+.axis-portfolio *::after {
+    box-sizing: border-box;
+}
+.axis-portfolio h1,
+.axis-portfolio h2,
+.axis-portfolio h3,
+.axis-portfolio p {
+    margin: 0;
+}
+.axis-portfolio h1 {
+    font-size: clamp(23px, 2.5vw, 32px);
+    letter-spacing: -0.7px;
+    line-height: 1.25;
+}
+.axis-portfolio h2 {
+    font-size: 17px;
+}
+.axis-portfolio h3 {
+    font-size: 15px;
+}
+.axis-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 25px;
+    flex-wrap: wrap;
+}
+.axis-header > div:nth-child(2) {
+    flex: 1;
+    min-width: 220px;
+}
+.axis-header p {
+    color: #4a6076;
+    margin-top: 7px;
+}
+.axis-brand {
+    background: var(--axis-ink);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.axis-header .axis-eyebrow {
+    color: var(--axis-accent);
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 2px;
+    margin: 0 0 5px;
+}
+.axis-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 18px;
+    padding: 20px;
+    background: white;
+    border: 1px solid var(--axis-line);
+    border-radius: 10px;
+}
+.axis-portfolio label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 650;
+    color: #344e65;
+    min-width: 170px;
+}
+.axis-portfolio select,
+.axis-portfolio input {
+    width: 100%;
+    color: var(--axis-ink);
+    background: white;
+    border: 1px solid #a8b9ca;
+    border-radius: 5px;
+    min-height: 40px;
+    padding: 8px 10px;
+    font: inherit;
+    font-size: 14px;
+}
+.axis-portfolio button {
+    font: inherit;
+    cursor: pointer;
+    border: 1px solid #9bafc2;
+    border-radius: 6px;
+    padding: 8px 13px;
+    color: var(--axis-ink);
+    background: white;
+    min-height: 38px;
+}
+.axis-portfolio button:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+.axis-portfolio button:not(:disabled):hover {
+    background: #e6f1f0;
+}
+.axis-portfolio .axis-button {
+    background: var(--axis-accent);
+    border-color: var(--axis-accent);
+    color: white;
+    font-weight: 650;
+}
+.axis-portfolio .axis-button:hover:not(:disabled) {
+    background: #06524e;
+}
+.axis-portfolio :focus-visible {
+    outline: 3px solid #ad6200;
+    outline-offset: 3px;
+}
+.axis-status-pill {
+    padding: 8px 12px;
+    margin-left: auto;
+    border-radius: 25px;
+    background: #edf5f5;
+    color: #125e59;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
+}
+.axis-filters {
+    margin-top: 12px;
+    background: white;
+    border: 1px solid var(--axis-line);
+    border-radius: 8px;
+    padding: 12px 18px;
+}
+.axis-filters summary {
+    cursor: pointer;
+    font-weight: 650;
+}
+.axis-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+}
+.axis-summary {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+}
+.axis-summary article {
+    background: white;
+    border: 1px solid var(--axis-line);
+    border-radius: 9px;
+    padding: 21px;
+    min-width: 0;
+}
+.axis-summary h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #52667a;
+    letter-spacing: 0.8px;
+}
+.axis-summary strong {
+    display: block;
+    font-size: clamp(22px, 2.2vw, 31px);
+    letter-spacing: -0.6px;
+    margin-top: 9px;
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+.axis-summary .axis-summary-date {
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+.axis-summary small {
+    display: block;
+    color: #52667a;
+    margin-top: 5px;
+}
+.axis-report-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+.axis-report-heading p {
+    font-size: 11px;
+    color: #52667a;
+}
+.axis-table-scroll {
+    overflow-x: auto;
+    background: white;
+    border: 1px solid var(--axis-line);
+    border-radius: 8px;
+    max-width: 100%;
+}
+.axis-portfolio table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 560px;
+}
+.axis-portfolio th,
+.axis-portfolio td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e2e9f0;
+    vertical-align: top;
+    text-align: left;
+}
+.axis-portfolio thead th {
+    background: #edf2f7;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #455c72;
+    font-weight: 750;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+}
+.axis-portfolio .axis-number {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.axis-portfolio small {
+    display: block;
+    font-weight: 400;
+    color: #52667a;
+    margin-top: 4px;
+}
+.axis-portfolio .axis-expand {
+    border: 0;
+    background: none;
+    padding: 0;
+    font-weight: 650;
+    text-align: left;
+    min-height: 30px;
+}
+.axis-expand > span {
+    display: inline-flex;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    background: #e2f0ed;
+    border-radius: 4px;
+    color: #08605b;
+}
+.axis-portfolio .axis-expansion > td {
+    background: #f4f7fa;
+    padding: 12px 20px;
+}
+.axis-portfolio .axis-child-row {
+    background: #fff;
+}
+.axis-children {
+    border-left: 3px solid #51938d;
+}
+.axis-loans {
+    min-width: 0;
+}
+.axis-loans table {
+    min-width: 900px;
+}
+.axis-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 0 13px;
+}
+.axis-section-heading span {
+    font-size: 11px;
+}
+.axis-risk-label {
+    font-weight: 650 !important;
+    color: #324e63 !important;
+}
+.axis-pagination {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    justify-content: end;
+    padding: 14px 0 0;
+    font-size: 12px;
+}
+.axis-risk-status {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    background: #edf4f4;
+    border: 1px solid #c3d9d7;
+    padding: 20px;
+    border-radius: 9px;
+}
+.axis-risk-status > div:first-child {
+    flex: 1;
+    min-width: 230px;
+}
+.axis-risk-status p {
+    margin-top: 5px;
+    font-size: 12px;
+}
+.axis-risk-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.axis-feedback {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    color: #8c2e1d;
+    border: 1px solid #e2b6aa;
+    background: #fff4ef;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 12px 0;
+}
+.axis-notice {
+    padding: 12px;
+    background: #fff5dc;
+    border-left: 3px solid #ad6200;
+    margin: 14px 0 !important;
+}
+.axis-loading {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 18px 0;
+    color: #455c72;
+}
+.axis-spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid #9bbcb9;
+    border-top-color: #086b67;
+    border-radius: 50%;
+}
+.axis-empty {
+    padding: 35px;
+    text-align: center;
+    background: white;
+    border: 1px solid var(--axis-line);
+    border-radius: 8px;
+}
+.axis-footer {
+    margin-top: 22px;
+    font-size: 10px;
+    color: #52667a;
+}
+.axis-renew {
+    margin-bottom: 12px;
+}
+.axis-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+@media (max-width: 760px) {
+    .axis-summary {
+        grid-template-columns: 1fr;
+    }
+    .axis-controls label {
+        flex: 1;
+        min-width: 160px;
+    }
+    .axis-status-pill {
+        margin-left: 0;
+    }
+    .axis-pagination {
+        justify-content: space-between;
+    }
+    .axis-header {
+        gap: 12px;
+    }
+}

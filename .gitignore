@@ -8,3 +8,8 @@ target/
 /AGENTS.md
 # Optional verified Linux wheels for offline Docker dependency installation.
 analytics-flask/wheels/*.whl
+/widget/.tools/
+/widget/.mendix-app/
+/mendix-app/widgets/
+
+/widget-audit*.json

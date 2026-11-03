@@ -353,8 +353,8 @@ plus job status, so "real-time analytics" never misleadingly implies real-time r
   standalone React page embedded in an iframe **does not satisfy** the custom-widget requirement.
 - Separate `GroupByPicker`, `FilterBar`, `GroupTree`, `GroupRow`, `LoanTable`, `RiskStatus`, and `ErrorState`; keep
   rendering components small.
-- Use **TanStack/React Query** for server-state fetching/caching and cancellation. Keep grouping selection, expansion
-  state and display preferences in local component state. **Redux is not necessary** for this isolated widget.
+- The widget uses small React hooks for query-scoped caching, cancellation and response ownership. Grouping, expansion
+  state and display preferences stay local. TanStack Query is optional and was not added; Redux is unnecessary.
 - Query keys include authorized scope, filters, group path and `snapshotVersion`; do not reuse stale responses after
   changing a grouping dimension.
 - Show loading skeletons, empty results, retry buttons, clear stale-data labels and accessible keyboard-operated
@@ -505,3 +505,15 @@ PublishedLoanPortfolio -> decimal-string DTOs. Metadata and data share one bound
 when enabled, with statement-duration consistency locks as the fallback. Source watermark and publication UUID remain
 separate. Spring delegates risk submission to Flask; it does not implement risk workers or publication. See contract
 section 12 and the Spring/frontend handoff documentation for concrete routes, limits and tested behavior.
+
+
+## Widget integration boundary
+
+widget/ contains the official-generator React/TypeScript web widget, generated XML/typings and editor components.
+A minimal MPK was verified before dashboard implementation. The API client preserves all existing routes and tenant
+identity remains server-verified. Context-scoped hooks fence canceled/late results, lazy-load groups/loans and check
+source/as-of/publication versions. Exact root sums use Big.js; group averages come from SQL and no overall average is
+invented. Risk controls use actual jobIds only, retain published reports and preserve uncertain POST idempotency keys.
+Supported dynamic expressions adapt an injectable authentication provider. A session scope change remounts all data
+state; same-session token renewal updates the provider without losing pending intent. Trusted token acquisition,
+Mendix import/rendering and browser CORS remain unverified Mendix integration work. See widget/README.md and phase4-validation.md.

@@ -1,0 +1,18 @@
+{
+  "scenariosPassed": 22,
+  "failed": 0,
+  "authorizedRiskRunsSubmitted": 0,
+  "summaries": [
+    {
+      "tenant": 1,
+      "activeLoans": 669,
+      "totalBalance": "248964756.01"
+    },
+    {
+      "tenant": 2,
+      "activeLoans": 665,
+      "totalBalance": "217399661.07"
+    }
+  ],
+  "mode": "Node HTTP requests using actual TypeScript client; browser CORS and Mendix runtime are separate checks"
+}

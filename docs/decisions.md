@@ -1,6 +1,6 @@
 # AXIS — Accepted Decisions and Assumptions
 
-**Decision register version:** `0.4.0` — assessment prototype.
+**Decision register version:** `0.5.0` — assessment prototype.
 **Detailed rationale:** [`architecture.md`](architecture.md).  
 **Authoritative fields, API shapes, calculations and enums:** [`data-contract.md`](data-contract.md).
 
@@ -82,3 +82,22 @@ label it clearly and test it; do not invent another one.
   and published risk identity stay distinct; no guaranteed multi-request portfolio snapshot is claimed.
 - ADR-029: Keep two levels and existing routes; add metadata for the widget. Bound groups at 100 with an explicit error
   on overflow, paginate loans at 50/100. Larger group pagination and production OIDC/RLS remain deferred.
+
+## widget implementation widget decisions (2026-11-03)
+
+- ADR-030: Use the real official Mendix web widget generator in widget/, retaining entrypoint, XML, generated typings,
+  preview and official packaging commands. Generator 11.13.0's template accepts tools ^11.11.0 and React ^19; tools
+  11.15.0 satisfies that range. Both declare Node ^22.18.0, but the resolved native packaging dependency requires >=22.20 within Node22.
+  Validation uses a checksum-verified local Node22.23.4 and npm11.20.0, leaving host Node22.18 unchanged. Pin installed direct versions
+  and retain package-lock.json. Initial target is the Mendix 11 React client; runtime compatibility remains unverified
+  until a compatible Studio Pro application is available. Prove minimal MPK packaging before dashboard implementation.
+- ADR-031: Small React hooks own query-scoped state, cancellation and version checks; no Redux or extra cache framework.
+  Use official Jest/React Testing Library tooling instead of the previously proposed Vitest setup. Test commands and
+  README follow the actual generated layout. Cached data and pending operations are cleared on identity changes.
+- ADR-032: Authentication is an injectable provider, adapted from supported dynamic Mendix expressions for runtime
+  access token/session scope and permission hints. An optional action requests renewal by updating bound properties;
+  ActionValue.execute does not return a token. No signing/issuing tokens or persistent token storage in the widget.
+  Permission hints affect UI only; Spring remains authoritative. Trusted acquisition is browser demonstration application work.
+- ADR-033: Exact sums of complete root aggregate counts/balances are permitted for summary presentation; group rates
+  remain authoritative API values. No overall average is invented without non-null-rate counts. Use decimal-safe
+  arithmetic/formatting. Existing routes, enums, NULL flags, job/run distinction and publication rules stay unchanged.

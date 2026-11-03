@@ -1,7 +1,7 @@
-﻿# Frontend integration handoff
+# Frontend integration handoff
 
-reporting API implementation supplies a backend; widget implementation must build an actual Mendix pluggable React/TypeScript widget. React and Mendix
-have not been modified. The authoritative field/enum contract is [data-contract.md](data-contract.md), sections 6/12.
+The Spring Boot backend and actual widget source/package are implemented in spring-boot/ and widget/.
+Mendix application configuration and trusted host authentication remain outstanding. The authoritative field/enum contract is [data-contract.md](data-contract.md), sections 6/12.
 Use Spring at http://127.0.0.1:8081 locally; configure the exact Mendix origin through PORTFOLIO_CORS_ORIGINS.
 All requests use Authorization: Bearer <verified token>. No tenant selector/body/query supplies authorization.
 Production must provide a trusted OIDC/token delegation boundary; never embed the development signing secret in a widget.
@@ -78,5 +78,10 @@ Health-only /actuator/health/liveness and /readiness are anonymous, status only.
 The local services use HTTP bound to127.0.0.1. A browser running elsewhere cannot use its own localhost to reach them;
 deploy behind HTTPS and configure the actual API origin. CORS is an explicit origin allowlist, no wildcard/credentials.
 Use AbortController for stale requests and check identity plus response versions before applying a result. Do not store
-signing secrets/tokens in committed widget properties. Widget package creation, Mendix embedding/manual smoke test,
+signing secrets/tokens in committed widget properties. The widget package is now delivered. Mendix embedding/manual smoke test,
 OIDC integration and upstream Mendix-to-analytics synchronization remain future integration work.
+
+
+For the implemented widget and exact browser demonstration property/session/import steps, see [widget README](../widget/README.md)
+and [browser demonstration handoff](phase5-integration.md). widget implementation evidence distinguishes DOM tests, real HTTP checks and pending
+Studio Pro/browser validation in [phase4-validation.md](phase4-validation.md).

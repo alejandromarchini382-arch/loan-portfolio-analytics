@@ -1,0 +1,9 @@
+{
+  "artifact": "releases/axis.loanportfolio.AxisLoanPortfolio.mpk",
+  "bytes": 32287,
+  "sha256": "6a398e2827600ef2ee4b68ab687050ad6e8db272b7e87c41f39f48e76c048513",
+  "archiveValidated": true,
+  "studioProImport": "NOT RUN",
+  "mendixRuntime": "NOT RUN",
+  "trustedMendixAuthentication": "NOT RUN"
+}
