@@ -1,42 +1,51 @@
-# Submission checklist and integration handoff
+# Submission checklist and readiness
 
-The implemented browser demonstration deliverable is a localhost real-backend browser demonstration of the actual widget components.
-See [executed evidence](browser-demo-validation.md), [reviewer instructions](../widget/README.md#browser-demonstration)
-and the [official widget package](../widget/releases/axis.loanportfolio.AxisLoanPortfolio.mpk).
-It is not a Mendix application. Studio Pro was intentionally excluded from browser demonstration.
+Final executed evidence: [validation report](final-validation.md), [compact results](validation-results.json),
+[requirements matrix](assessment-requirements.md), [setup](setup.md) and [five-minute walkthrough](demo-walkthrough.md).
+Publication readiness is tracked separately from implementation and validation.
 
-## Ready to review
+## Independent decisions
 
-- Existing SQL/Flask/Spring services and persistent fixture were preserved; four Docker services healthy.
-- Real browser SQL-backed grouping, nested expansion, signed pagination, filtering and published-risk display.
-- Server-side JWTs, opaque expiring sessions, fixed proxy allowlist, CSRF, tenant and permission checks.
-- 72 existing widget tests, 12 demo-server cases, 22 browser cases (7 real / 14 mocked / 1 synthetic),
-  and 22 real backend HTTP scenarios passed in the recorded runs.
-- Official MPK validated, production widget payloads unchanged; redacted local screenshots and setup instructions.
+| Evaluation | Decision | Reason |
+| --- | --- | --- |
+| Engineering deliverable | READY WITH LIMITATIONS | Implemented analytics/widget/browser path tested and reproducible within disclosed development limits |
+| Original assessment | INCOMPLETE | Required Mendix application, operational management, embedded runtime and application MPK missing |
 
-## Required before claiming the original assessment complete
+The official widget MPK is built/validated, not an app export. Studio Pro import/runtime is NOT RUN. The browser demo
+is not Mendix. The supplied PDF explicitly requires the app and its package; only the reviewer can accept a substitute.
 
-1. Use an authorized real Mendix app and compatible Studio Pro; record exact versions and prerequisites.
-2. Implement/verify actual operational loan CRUD and app security/tenant associations under approved app scope.
-3. Import the official widget and bind a trusted nonpersistent session context. Browser demo codes/proxy are not the
-   production Mendix integration. Follow [deferred Mendix handoff](mendix-integration.md); retain server-derived tenant
-   and permissions, and test renewal/logout/user changes without cached-data leakage.
-4. Demonstrate runtime rendering, origin/HTTPS/CORS, all grouping/pagination/filter flows and authorized risk behavior
-   in that app. Use isolated data for mutation/failure scenarios; never reset the persistent fixture for screenshots.
-5. Implement/verify operational-to-analytics synchronization and SourceVersion updates if required by the actual app.
-   Existing fixture/reporting evidence does not prove synchronization.
-6. Export the actual Mendix app deliverable, keep it distinct from the pluggable-widget MPK, and record real acceptance
-   results. Do not describe an untested application or export as complete.
-7. Review repository contents and package artifacts, licenses/setup docs, secrets/PII exclusions and known limitations.
-   Run relevant regression checks after any later code changes. Publish/commit/push only with explicit authorization.
+## Review-ready artifacts
 
-## Current operational notes
+- SQL migrations/indexes, deterministic generator, Flask worker/API, Spring reporting and their source/tests.
+- Actual widget source, XML/typings/editor assets, pinned dependencies and official releases/ MPK.
+- Restricted browser host, real/mocked/synthetic tests, reviewed masked screenshots and exact fresh evidence.
+- Safe .env.example, complete setup, architecture, requirements matrix, demo/interview walkthroughs and limitations.
 
-Start the backend without replacing data, build preview and launch `widget/scripts/demo.py --mode real --port 3099` as
-shown in widget/README.md. Open the private code file locally and authenticate at http://127.0.0.1:3099. Credentials expire
-within 15 minutes of startup; relaunch as needed. Default profiles cannot submit risk jobs. Stop with Ctrl+C; do not
-expose the listener publicly, upload raw reports/access files or store tokens in browser storage. Synthetic mode is
-separate and clearly marked. All screenshot captures are local; any later publication requires an explicit review.
+Fresh validation: 72 Jest cases, 12 proxy/server cases, 6 launcher unit cases, 22 Node HTTP scenarios and 22 Playwright
+cases (14 mocked / 7 real / 1 synthetic). Do not present these as a completed Mendix application test or add historical
+backend reruns to make a larger number. Current SQL volume/publications and credentials were preserved.
 
-Final readiness: browser demonstration, widget package and backend slice ready for assessment review. Complete Mendix
-application integration and final submission remain outstanding. Repository publication is a separate release step.
+## Necessary before submission
+
+1. Decide with the reviewer whether widget MPK + browser demo is accepted in place of the mandatory Mendix app/export.
+   If not, the missing app must be delivered under a separate approved scope; do not claim it already exists.
+2. Review setup verification limits: isolated frontend install/build succeeded, full new backend installation/initial
+   publication was not rerun. Current fixture is 1,500 total / 1,334 active, not the stated 1,500+ active context.
+3. Resolve confidentiality/visibility and repository licensing. Generated widget Apache declaration is not a root
+   ownership grant. Source third-party notices are included; public distribution still needs review.
+4. Review the historical AGENTS.md presence. It is currently untracked/ignored; no secret was detected in history.
+   History rewriting requires explicit separate approval and was not performed.
+5. Review Git diff/status and all intended files, ignore exclusions, package metadata and evidence. Nothing is staged.
+   Then authorize the desired commit/publication explicitly. Do not use git add . without file review.
+
+## Runtime and remaining limitations
+
+Use setup.md's existing-environment path, build preview and run demo.py --mode real --port 3099 with fresh restricted
+credentials. Stop with Ctrl+C. Never expose the demo publicly, publish access files, enable risk mutation for routine
+checks, reset data or rotate the SQL volume password. Production identity/HTTPS, RLS, hostile-credential isolation,
+operational synchronization, installed nightly scheduling and load/accessibility certification remain future work.
+[Deferred Mendix instructions](mendix-integration.md) are unverified integration guidance, not a delivered application.
+
+Recommended commit message after review: `docs: finalize AXIS analytics assessment submission`.
+Provide a GitHub repository link only after candidate authorization and visibility/confidentiality review; do not create
+an automatic public release. The reviewer disclosure draft is in demo-walkthrough.md and has not been sent.

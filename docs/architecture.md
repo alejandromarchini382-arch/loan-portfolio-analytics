@@ -1,5 +1,46 @@
 # AXIS Loan Portfolio Analytics — Architecture Decisions
 
+## Implemented runtime and verification status
+
+The diagram below describes the actual analytics/browser implementation. Mendix operational storage/pages, trusted
+Mendix identity exchange, synchronization and app export are missing. The later design rationale includes proposed
+integration/hardening; it is not evidence of an implemented Mendix application. The canonical data contract controls
+fields/formulas when older illustrative snippets differ. See [requirements](assessment-requirements.md) and
+[final executed validation](final-validation.md).
+
+```mermaid
+flowchart LR
+    Browser["Browser: existing PortfolioDashboard"] -->|"opaque session + CSRF"| Proxy["Loopback demo proxy / server JWT"]
+    Proxy -->|"verified token"| API["Spring: JWT, tenant, JDBC"]
+    API -->|"one bounded reporting statement"| View[("SQL PublishedLoanPortfolio")]
+    API -->|"risk:run delegation"| RiskAPI["Flask API"]
+    RiskAPI --> Queue[("Tenant RiskJob")]
+    Queue --> Worker["Worker: claim, lease, snapshot, batches"]
+    Worker --> Stage[("RiskScoreStage")]
+    Stage --> Validate["PublishRiskRun: counts + versions"]
+    Validate -->|"atomic pointer / successful results"| View
+    Package["Official widget source / MPK"] -.-> Missing["Mendix app and trusted host: missing"]
+    Missing -. "future authenticated integration" .-> API
+```
+
+SQL aggregation uses the tenant-leading dimension indexes and exact decimal types. Spring JDBC exposes trusted dynamic
+SQL expressions from an allowlist with bound filter values; it does not fetch all loans to aggregate in Java. React
+lazy-loads root/children/limited details, checks response versions and cancels stale work. Signed keyset cursors bind tenant,
+path/filters, stable sort position, version and expiry; they do not freeze data across requests. Source watermark and
+publication identity remain separate. RCSI is used where configured; the current database uses bounded statement-level
+consistency locks as the documented fallback, not an assumed multi-SELECT snapshot.
+
+Flask owns risk lifecycle and prototype policy. Separate workers fence claims/leases, stage all active inputs and call
+the existing SQL procedure only after completion. Publication atomically switches the pointer with success; failed,
+incomplete or changed-source runs retain previous ratings. No SQL object was changed in this final audit. Authoritative
+balance updates and payment/projection source-version synchronization remain an upstream integration requirement.
+
+The production widget provider remains injectable. The demo-only transport strips browser Authorization and uses the
+local session/CSRF adapter; the proxy attaches its preauthorized JWT only upstream. Signing material stays in the operator
+launcher, and Spring remains authoritative for tenant/permissions. No backend CORS/auth relaxation was introduced.
+The proxy is deliberately loopback-only and cannot stand in for production OIDC/HTTPS or a trusted Mendix session bridge.
+
+
 **Assessment:** AIO Logic, Senior Full-Stack Developer — Loan Portfolio Analytics System  
 **Status:** Proposed architecture; decisions fixed for the prototype, production hardening identified separately  
 **Scope:** Part 1 (system design), with explicit implications for Part 2 (6–8-hour prototype)

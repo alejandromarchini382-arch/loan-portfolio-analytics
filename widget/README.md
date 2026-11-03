@@ -249,3 +249,19 @@ See [Browser demo validation](../docs/browser-demo-validation.md), [browser summ
 operational app with loan CRUD, a trusted session bridge, synchronization and final submission. Legacy official build
 warnings remain and are recorded separately from failures. Local environment files, tools, node_modules, dist,
 .demo credentials and raw reports are excluded from Git.
+
+
+## Final review and fresh checkout
+
+Start with [complete setup](../docs/setup.md), [reviewer walkthrough](../docs/demo-walkthrough.md) and
+[fresh final validation](../docs/final-validation.md). Earlier component counts remain historical evidence.
+The read-only HTTP launcher now discovers the actual published job through the dedicated reporting account and a
+TenantId-qualified RiskPublication/RiskJob join; it does not reuse an ID from spring-boot/demo-results.json. Host ODBC and
+PORTFOLIO_DB_USER/PASSWORD are required. Without a publication its two job-status scenarios are explicitly NOT RUN.
+Run its 6 mocked unit cases with:
+
+```powershell
+analytics-flask/.venv/Scripts/python.exe -B -m pytest widget/scripts/test_backend_launcher.py -q -p no:cacheprovider
+```
+
+Licensing review notes and history findings are recorded in final-validation.md; no new repository license was assigned.

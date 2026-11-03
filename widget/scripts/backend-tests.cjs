@@ -112,6 +112,7 @@ const assert = require("node:assert/strict");
         scenariosPassed: passed,
         failed: 0,
         authorizedRiskRunsSubmitted: 0,
+        jobStatusChecks: config.jobId ? "PASS" : "NOT RUN: no successful tenant publication",
         summaries,
         mode: "Node HTTP requests using actual TypeScript client; browser CORS and Mendix runtime are separate checks"
     };

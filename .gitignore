@@ -13,3 +13,25 @@ analytics-flask/wheels/*.whl
 /mendix-app/widgets/
 
 /widget-audit*.json
+
+# Local credentials and machine-specific environment variants; examples contain no secrets.
+.env.*
+!.env.example
+!.env.*.example
+.secrets/
+*.secret
+*.secrets
+*.pem
+*.key
+*.pfx
+*.p12
+*.jks
+.tools/
+.demo/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+playwright-report/
+test-results/

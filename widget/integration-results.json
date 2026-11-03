@@ -2,6 +2,7 @@
   "scenariosPassed": 22,
   "failed": 0,
   "authorizedRiskRunsSubmitted": 0,
+  "jobStatusChecks": "PASS",
   "summaries": [
     {
       "tenant": 1,

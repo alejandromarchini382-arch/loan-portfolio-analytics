@@ -1,0 +1,182 @@
+{
+  "date": "2026-11-03",
+  "freshRunsOnly": true,
+  "widget": {
+    "jestPassed": 72,
+    "jestSuites": 5,
+    "jestSeconds": 4.354,
+    "demoServerPassed": 12,
+    "demoServerSeconds": 0.3340428,
+    "launcherUnitPassed": 6,
+    "launcherUnitSeconds": 0.4
+  },
+  "browser": {
+    "processExitCode": 0,
+    "stats": {
+      "startTime": "2026-11-03T11:57:00.270Z",
+      "duration": 32896.331,
+      "expected": 22,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "mockedPassed": 14,
+    "realBackendPassed": 7,
+    "syntheticPassed": 1
+  },
+  "backendHttp": {
+    "scenariosPassed": 22,
+    "failed": 0,
+    "authorizedRiskRunsSubmitted": 0,
+    "jobStatusChecks": "PASS",
+    "summaries": [
+      {
+        "tenant": 1,
+        "activeLoans": 669,
+        "totalBalance": "248964756.01"
+      },
+      {
+        "tenant": 2,
+        "activeLoans": 665,
+        "totalBalance": "217399661.07"
+      }
+    ],
+    "mode": "Node HTTP requests using actual TypeScript client; browser CORS and Mendix runtime are separate checks"
+  },
+  "package": {
+    "artifact": "releases/axis.loanportfolio.AxisLoanPortfolio.mpk",
+    "bytes": 32287,
+    "sha256": "942e073e9bbd79fd6f3866e6a0bde53084071b95c67a1ffdab8c2533ef2c4adb",
+    "archiveValidated": true,
+    "studioProImport": "NOT RUN",
+    "mendixRuntime": "NOT RUN",
+    "trustedMendixAuthentication": "NOT RUN",
+    "uncompressedPayloadsMatchHead": true,
+    "uncompressedPayloadsMatchIsolatedBuild": true
+  },
+  "reproducibility": {
+    "method": "Isolated Git-eligible source snapshot, no local .env, no node_modules; existing toolchain and warm package cache",
+    "persistentDatabaseTouched": false,
+    "steps": [
+      {
+        "name": "npm-ci",
+        "exitCode": 0,
+        "seconds": 213.45
+      },
+      {
+        "name": "official-widget-build",
+        "exitCode": 0,
+        "seconds": 20.86
+      },
+      {
+        "name": "seed-1500",
+        "exitCode": 0,
+        "seconds": 0.51
+      },
+      {
+        "name": "seed-15000",
+        "exitCode": 0,
+        "seconds": 1.89
+      }
+    ]
+  },
+  "securityInitialScan": {
+    "gitEligibleFilesScanned": 162,
+    "configuredSecretsAndAccessCodesMatches": [],
+    "credentialPatternsMatchesIncluded": true,
+    "historyBlobsScanned": 194,
+    "historySensitiveMatches": [],
+    "historyPrivateFileNames": [
+      "AGENTS.md"
+    ],
+    "machineSpecificPathFiles": [],
+    "ignoredPaths": {
+      "AGENTS.md": true,
+      ".env": true,
+      ".env.local": true,
+      ".env.production": true,
+      "widget/.demo/access-test.json": true,
+      "widget/.tools/test.exe": true,
+      "widget/node_modules/test": true,
+      "analytics-flask/.venv/test": true,
+      "widget/.demo/test-results/report.json": true,
+      "local.key": true
+    },
+    "safeExampleGitEligible": true
+  },
+  "npmAudit": {
+    "all": {
+      "low": 9,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "productionTotal": 0
+  },
+  "remainingNotRun": [
+    "full clean-machine backend initialization and first publication",
+    "Mendix import/runtime/application export",
+    "production identity integration",
+    "live authorized risk mutation",
+    "expensive unchanged SQL/Flask/Java suites"
+  ],
+  "finalSecurityScan": {
+    "gitEligibleFilesScanned": 169,
+    "unpackedArchivesScanned": 1,
+    "sensitiveMatches": []
+  },
+  "documentation": {
+    "linksChecked": 109,
+    "brokenLinks": 0,
+    "unresolvedAnchors": 0,
+    "setupBlocksParsed": 9,
+    "syntaxErrors": 0
+  },
+  "persistentPublicationChecks": [
+    {
+      "tenantAlias": "A",
+      "publicationUnchanged": true,
+      "riskGroupsUnchanged": true,
+      "statusUnchanged": true
+    },
+    {
+      "tenantAlias": "B",
+      "publicationUnchanged": true,
+      "riskGroupsUnchanged": true,
+      "statusUnchanged": true
+    }
+  ],
+  "gitStatus": {
+    "staged": 0,
+    "unstagedTracked": 17,
+    "untracked": 9,
+    "paths": [
+      ".gitignore",
+      "README.md",
+      "docs/architecture.md",
+      "docs/submission-checklist.md",
+      "widget/README.md",
+      "widget/browser/helpers.cjs",
+      "widget/evidence/browser-demo/mocked-error.png",
+      "widget/evidence/browser-demo/real-dashboard.png",
+      "widget/evidence/browser-demo/real-filter-empty.png",
+      "widget/evidence/browser-demo/real-nested-pagination.png",
+      "widget/evidence/browser-demo/real-published-risk.png",
+      "widget/evidence/browser-demo/real-responsive.png",
+      "widget/integration-results.json",
+      "widget/package-results.json",
+      "widget/releases/axis.loanportfolio.AxisLoanPortfolio.mpk",
+      "widget/scripts/backend-tests.cjs",
+      "widget/scripts/backend-tests.py",
+      ".env.example",
+      "docs/assessment-requirements.md",
+      "docs/demo-walkthrough.md",
+      "docs/final-validation.md",
+      "docs/interview-walkthrough.md",
+      "docs/setup.md",
+      "docs/validation-results.json",
+      "widget/THIRD_PARTY_NOTICES.md",
+      "widget/scripts/test_backend_launcher.py"
+    ]
+  }
+}
